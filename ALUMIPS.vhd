@@ -1,13 +1,13 @@
 ----------------------------------------------------------------------
 -- Fichero: ALUMIPS.vhd
--- Descripción: ALU del microprocesador MIPS
--- Fecha última modificación: 
+-- DescripciÃ³n: ALU del microprocesador MIPS
+-- Fecha Ãºltima modificaciÃ³n: 
 
 -- Autores: 
--- Asignatura: E.C. 1º grado
--- Grupo de Prácticas:
--- Grupo de Teoría:
--- Práctica: 2
+-- Asignatura: E.C. 1Âº grado
+-- Grupo de PrÃ¡cticas:
+-- Grupo de TeorÃ­a:
+-- PrÃ¡ctica: 2
 -- Ejercicio: 2
 ----------------------------------------------------------------------
 
@@ -38,7 +38,6 @@ begin
          Op1 nor Op2 when "101",
          resta  when "110",
          resslt when "111",
-         --(0 => (Op1 < Op2), others => ?0?) when "111",
          x"BEBACAFE" when others;
          
     resta  <= Op1 - Op2; 
