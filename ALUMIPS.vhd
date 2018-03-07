@@ -3,10 +3,10 @@
 -- Descripción: ALU del microprocesador MIPS
 -- Fecha última modificación: 
 
--- Autores: 
+-- Autores: Nicolás Serrano y Álvaro Sánchez
 -- Asignatura: E.C. 1º grado
--- Grupo de Prácticas:
--- Grupo de Teoría:
+-- Grupo de Prácticas: 2111
+-- Grupo de Teoría: 211
 -- Práctica: 2
 -- Ejercicio: 2
 ----------------------------------------------------------------------
