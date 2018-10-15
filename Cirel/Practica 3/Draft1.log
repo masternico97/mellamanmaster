@@ -1,9 +1,9 @@
-Circuit: * C:\Users\Nico\Desktop\Cirel\Practica 3\Draft1.asc
+Circuit: * C:\Users\eps\Desktop\Practica 3\Draft1.asc
 
 Direct Newton iteration for .op point succeeded.
 
-Date: Sun Oct 14 12:00:36 2018
-Total elapsed time: 9.475 seconds.
+Date: Mon Oct 15 10:53:26 2018
+Total elapsed time: 12.887 seconds.
 
 tnom = 27
 temp = 27
