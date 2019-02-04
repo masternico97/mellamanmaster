@@ -1,0 +1,67 @@
+######################################################################
+## Fichero: calculaSumaMult.asm
+## Descripción: Programa que calcula la suma de dos operandos y posteriormente multiplica por 2, todo a través de una función
+## Fecha última modificación:
+
+## Autores: 
+## Asignatura: E.C. 1º grado
+## Grupo de Prácticas: 2111
+## Grupo de Teoría: 211
+## Práctica: 3
+## Ejercicio: 2
+######################################################################
+
+.text
+
+main:		
+	#Lectura de X y guardado en un registro
+	lw $a0, X
+	#Lectura de Y y guardado en un registro
+	lw $a1, Y
+	#PUSH del registro equivalente a X
+	addi $sp, $sp, -4
+	sw $a0, 0($sp)
+	#PUSH del registro equivalente a Y
+	addi $sp, $sp, -4
+	sw $a1, 0($sp)
+	#Llamada a función
+	jal calculaSumaMult
+	#Recuperación del retorno mediante un POP
+	lw $at, 0($sp)
+	addi $sp, $sp, 4 #Liberamos el resultado
+	addi $sp, $sp, 4 #Liberamos Y
+	addi $sp, $sp, 4 #Liberamos X
+	#Guardado del retorno en la variable R de memoria
+	sw $at, R
+	#Bucle infinito
+	target:
+	j target
+	
+calculaSumaMult:
+	
+	#Dirección de retortno 
+	addi $sp, $sp, -4
+	sw $ra, 0($sp) 
+	#Recuperación del segundo parámetro mediante un POP
+	lw $t0, 4($sp)
+	#Recuperación del primer parámetro mediante un POP
+	lw $t1, 8($sp)
+	#Suma de los dos parámetros
+	add $at, $t0, $t1
+	#Multiplica por dos
+	sll $at, $at, 1
+	# Recuperar la direccion de retorno de la función
+	lw $ra, ($sp)
+	subi $sp, $sp, 4
+	#PUSH del resultado
+	addi $sp, $sp, -4
+	sw $at, 0($sp)
+	#Retorno a main
+	jr $ra
+	
+	
+
+.data 
+X: 10
+Y: 4
+R:
