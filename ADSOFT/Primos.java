@@ -45,11 +45,18 @@ public class Primos {
      * @param n
      */
     private void actualizaPrimos(int n){
-        for(int i = 2; i <= n; i++){
+        int i;
+        for(i = 2; i < n; i++){
             if (compruebaPrimo(i) == true) primos.add(i);
         }
+        if(compruebaPrimo(i) == true) {
+            primos.add(i);
+            System.out.println("El número "+n+" es primo.");
+        }
+        else{
+            System.out.println("El número "+n+" no es primo."); 
+        }
         max = n;
-
     }
 
     /**
