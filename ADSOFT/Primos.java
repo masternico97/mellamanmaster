@@ -52,9 +52,7 @@ public class Primos {
      * @param n
      */
     private void actualizaPrimos(int n){
-        int i;
-
-        for(i = 2; i <= n; i++){
+        for(int i = 2; i <= n; i++){
             if (compruebaPrimo(i) == true) primos.add(i);
         }
         max = n;
