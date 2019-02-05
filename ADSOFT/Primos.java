@@ -46,15 +46,9 @@ public class Primos {
      */
     private void actualizaPrimos(int n){
         int i;
-        for(i = 2; i < n; i++){
+
+        for(i = 2; i <= n; i++){
             if (compruebaPrimo(i) == true) primos.add(i);
-        }
-        if(compruebaPrimo(i) == true) {
-            primos.add(i);
-            System.out.println("El número "+n+" es primo.");
-        }
-        else{
-            System.out.println("El número "+n+" no es primo."); 
         }
         max = n;
     }
@@ -68,10 +62,28 @@ public class Primos {
     private boolean compruebaPrimo(int n){
         for (int p: primos) {
             if ((n % p) == 0) {
-                return false; 
+                return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Calcula los divisores primos de n, sin asumir
+     * que ya se han calculado los primos menores a dicho numero
+     * @param n valor a comprobar
+     * @return array ordenado de divisores
+     */
+    public SortedSet<Integer> divisoresPrimos(int n){
+      SortedSet<Integer> divisores = new TreeSet<>();
+
+      actualizaPrimos(n);
+      for (int p: primos) {
+          if ((n % p) == 0) {
+            divisores.add(p);
+          }
+      }
+      return divisores;
     }
 
     public static void main(String[] args) {
@@ -79,10 +91,12 @@ public class Primos {
             System.out.println("Se espera al menos un número como parámetro");
         }
         else {
-            int max = Integer.parseInt(args[0]); //convertimos a entero
+            int max = Integer.parseInt(args[0]);
+
             Primos p = new Primos();
-            p.esPrimo(max);
+            System.out.println("¿"+max+ " es primo? Respuesta: "+p.esPrimo(max));
             System.out.println(p);
+            System.out.println("Divisores primos de "+max+" = "+p.divisoresPrimos(max));
         }
     }
 
