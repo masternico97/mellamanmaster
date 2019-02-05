@@ -1,3 +1,10 @@
+/**
+ * Programa destinado a la comprobación de
+ * números primos
+ * @author Nicolás Serrano y Álvaro Sánchez
+ * Grupo de prácticas: 2213
+ */
+
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -86,9 +93,14 @@ public class Primos {
       return divisores;
     }
 
+    /**
+     * Recibe un número como parámetro y se comprueba si
+     * es primo, además de sus divisores primos
+     * @param args número a comprobar
+     */
     public static void main(String[] args) {
         if(args.length != 1) {
-            System.out.println("Se espera al menos un número como parámetro");
+            System.out.println("Se espera un número como parámetro");
         }
         else {
             int max = Integer.parseInt(args[0]);
