@@ -94,7 +94,7 @@ public class Primos {
             int max = Integer.parseInt(args[0]);
 
             Primos p = new Primos();
-            System.out.println("¿"+max+ " es primo? Respuesta: "+p.esPrimo(max));
+            System.out.println("¿"+max+" es primo? Respuesta: "+p.esPrimo(max));
             System.out.println(p);
             System.out.println("Divisores primos de "+max+" = "+p.divisoresPrimos(max));
         }
