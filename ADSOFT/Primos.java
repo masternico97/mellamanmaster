@@ -53,7 +53,7 @@ public class Primos {
      */
     private void actualizaPrimos(int n) {
         for(int i = 2; i <= n; i++) {
-            if (compruebaPrimo(i) == true) { 
+            if(compruebaPrimo(i) == true) { 
                 primos.add(i);
             }
         }
@@ -67,8 +67,8 @@ public class Primos {
      * @return si n es primo
      */
     private boolean compruebaPrimo(int n) {
-        for (int p: primos) {
-            if ((n % p) == 0) {
+        for(int p: primos) {
+            if((n % p) == 0) {
                 return false;
             }
         }
@@ -85,8 +85,8 @@ public class Primos {
       SortedSet<Integer> divisores = new TreeSet<>();
 
       actualizaPrimos(n);
-      for (int p: primos) {
-          if ((n % p) == 0) {
+      for(int p: primos) {
+          if((n % p) == 0) {
             divisores.add(p);
           }
       }
