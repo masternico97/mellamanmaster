@@ -51,9 +51,11 @@ public class Primos {
      * para todos los números entre max+1 y n. Actualiza max al terminar.
      * @param n
      */
-    private void actualizaPrimos(int n){
-        for(int i = 2; i <= n; i++){
-            if (compruebaPrimo(i) == true) primos.add(i);
+    private void actualizaPrimos(int n) {
+        for(int i = 2; i <= n; i++) {
+            if (compruebaPrimo(i) == true) { 
+                primos.add(i);
+            }
         }
         max = n;
     }
@@ -64,7 +66,7 @@ public class Primos {
      * @param n valor a comprobar
      * @return si n es primo
      */
-    private boolean compruebaPrimo(int n){
+    private boolean compruebaPrimo(int n) {
         for (int p: primos) {
             if ((n % p) == 0) {
                 return false;
@@ -79,7 +81,7 @@ public class Primos {
      * @param n valor a comprobar
      * @return array ordenado de divisores
      */
-    public SortedSet<Integer> divisoresPrimos(int n){
+    public SortedSet<Integer> divisoresPrimos(int n) {
       SortedSet<Integer> divisores = new TreeSet<>();
 
       actualizaPrimos(n);
@@ -99,8 +101,7 @@ public class Primos {
     public static void main(String[] args) {
         if(args.length != 1) {
             System.out.println("Se espera un número como parámetro");
-        }
-        else {
+        } else {
             int max = Integer.parseInt(args[0]);
 
             Primos p = new Primos();
