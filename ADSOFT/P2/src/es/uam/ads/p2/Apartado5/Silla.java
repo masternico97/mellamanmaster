@@ -3,26 +3,29 @@ package es.uam.ads.p2.Apartado5;
 import java.util.*;
 
 /**
- * Clase carrito que nos permite obtener los
- * datos del articulo carrito
+ * Clase silla que nos permite obtener los
+ * datos del articulo silla
  * @author {@link "mailto:nicolas.serranos@estudiante.uam.es" "Nicolas Serrano"}
  * @author {@link "mailto:alvaro.sanchezromero@estudiante.uam.es" "Alvaro Sanchez"}
  * Grupo de practicas: 2213
  */
-public class Carrito extends Articulo {
-    private static final int MAX_ACCESORIOS = 3
+public class Silla extends Articulo {
+    private static final int MAX_PESO = 25
 
     private String marca;
     private String modelo;
     private String color;
     private boolean devolucion;
-    private Accesorio [] accesorios = new Accesorio[MAX_ACCESORIOS];
+    private int minPeso;
+    private int maxPeso;
+    private boolean isofix;
+    private String comentarios;
     private List<Registro> registros = new ArrayList<>();
 
 
     /**
      * Constructor de la clase Carrito
-     * @param codigo = codigo del articulo
+     * @param codigo = codigo del producto
      * @param marca = marca del Carrito
      * @param modelo = modelo del Carrito
      * @param color = color del Carrito
@@ -31,23 +34,24 @@ public class Carrito extends Articulo {
     public Carrito(long codigo, String marca, String modelo, String color, int numPiezas) {
         Random random = new Random();
 
+        maxPeso = random.nextInt(MAX_PESO);
+        minPeso = random.nextInt(maxPeso);
+        isofix = random.nextBoolean();
         this.marca = marca;
         this.modelo = modelo;
         this.color = color;
-        devolucion = !(comprobarAnclaje() && comprobarAcolchado() && comprobarEnganche());
+        devolucion = !(comprobarAnclaje() && comprobarAcolchado());
         super(codigo, numPiezas);
-        /* Si el producto se devuelve no se autoriza el pago*/
         super.setAutorizarPago(!devolucion);
-
-        //Crea un numero alaetorio de accesorios
-        for(int i; i < random.nextInt(MAX_ACCESORIOS); i++) {
-            accesorios[i] = new Accesorio(this.marca, this.modelo, this.color, "accesorio");
-        }
     }
 
     public void setDevolucion(boolean bool) {
         devolucion = bool;
         super.setAutorizarPago(!devolucion);
+    }
+
+    public void setComentarios(String comentario) {
+        comentarios = comentario;
     }
 
     /**
@@ -59,7 +63,7 @@ public class Carrito extends Articulo {
     }
 
     /**
-     * Indica si el carro tiene problemas
+     * Indica si la silla tiene problemas
      * de anclaje
      * @return si tiene problemas de anclaje
      * devuelve false, en caso opuesto, devuelve
@@ -71,7 +75,7 @@ public class Carrito extends Articulo {
     }
 
     /**
-     * Indica si el carro tiene problemas
+     * Indica si la silla tiene problemas
      * de acolchado
      * @return si tiene problemas de acolchado
      * devuelve false, en caso opuesto, devuelve
@@ -80,24 +84,5 @@ public class Carrito extends Articulo {
     public boolean comprobarAcolchado() {
         Random random = new Random();
         return random.nextBoolean();
-    }
-
-    /**
-     * Indica si el carro o sus accesorios
-     * tiene problemas de enganche
-     * @return si tiene problemas de enganche
-     * devuelve falso, en caso opuesto, devuelve
-     * true
-     */
-    public boolean comprobarEnganche() {
-        Random random = new Random();
-
-        //Si alguno de los accesorios falla se retorna el error
-        for(Accesorio accesorios: accesorio){
-            if(!random.nextBoolean()){
-                return false;
-            }
-        }
-        return random.nextBoolean;;
     }
  }
