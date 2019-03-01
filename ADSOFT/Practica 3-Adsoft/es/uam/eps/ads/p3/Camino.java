@@ -1,4 +1,6 @@
-package es.uam.ads.p3;
+package es.uam.eps.ads.p3;
+
+import java.util.*;
 
 /**
  * Clase Camino que nos sirve para conectar posadas

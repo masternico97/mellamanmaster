@@ -1,4 +1,6 @@
-package es.uam.ads.p3;
+package es.uam.eps.ads.p3;
+
+import java.util.*;
 
 /**
  * Clase Explorador
@@ -17,27 +19,32 @@ public class Explorador {
         this.posicion = posicion;
     }
 
-    public getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public getEnergia() {
+    public int getEnergia() {
         return energia;
     }
 
-    public getPosicion(){
+    public Posada getPosicion(){
         return posicion;
     }
 
-    public toString String() {
-        return +getNombre()+" (e:"+getEnergia()+") en "+getPosicion().getNombre();
+    public String toString() {
+        return getNombre()+" (e:"+getEnergia()+") en "+getPosicion().getNombre();
     }
 
     public boolean recorre(Camino camino) {
+
+        if(camino == null) {
+            return false;
+        }
+
         for(int i = 0; i < getPosicion().getNumCaminos(); i++) {
             if(camino == getPosicion().getCamino(i)) {
                 if(puedeRecorrerCamino(camino) && puedeAlojarseEn(camino.getDestino())){
-                  this.energia -= camino.getCosteReal();
+                  this.energia -= camino.costeReal();
                   this.energia += camino.getDestino().getRecuperacion();
                   this.posicion = camino.getDestino();
                   return true;
@@ -47,24 +54,22 @@ public class Explorador {
         return false;
     }
 
-    private boolean recorre(Posada... posadas) {
-        Camino c;
+    public boolean recorre(Posada... posadas) {
         boolean error = false;
         for(Posada p: posadas) {
-            c = getCamino(p);
-            if(recorre(c) == false) {
+            if(recorre(getPosicion().getCamino(p)) == false) {
                 error = true;
             }
         }
 
         if(error == true) {
-          return false;
+            return false;
         }
         return true;
     }
 
     private boolean puedeRecorrerCamino(Camino camino) {
-        if(this.energia > camino.getCosteReal()){
+        if(this.energia > camino.costeReal()) {
             return true;
         }
         return false;

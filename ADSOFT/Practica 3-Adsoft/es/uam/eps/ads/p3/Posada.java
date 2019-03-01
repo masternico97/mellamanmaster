@@ -47,16 +47,18 @@ public class Posada {
 
     public Camino getCamino(Posada destino){
         for(Camino current: caminos){
-            if(current.getDestino() == destino)
+            if(current.getDestino() == destino) {
                 return current;
+            }
         }
         return null;
     }
 
     public boolean addCamino(Camino camino) {
-        if(nombre.equals(getOrigen(camino)) && !(nombre.equals(getDestino(camino)))){
+        if(nombre.equals(camino.getOrigen().getNombre()) && !(nombre.equals(camino.getDestino().getNombre()))){
             caminos.add(camino);
             return true;
         }
         return false;
     }
+}
