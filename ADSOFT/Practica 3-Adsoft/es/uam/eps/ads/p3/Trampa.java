@@ -11,8 +11,8 @@ import java.lang.Math;
  * Grupo de prácticas: 2213
  */
 public class Trampa extends to Camino {
-    public float factorCoste;
-    public float probRetorno;
+    private float factorCoste;
+    private float probRetorno;
 
     /**
      * Constructor de la clase trampa
