@@ -3,7 +3,7 @@ package es.uam.eps.ads.p3;
 import java.util.*;
 
 /**
- * Clase Explorador
+ * Clase Explorador que se desplaza por caminos hacia posadas
  * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de prácticas: 2213
