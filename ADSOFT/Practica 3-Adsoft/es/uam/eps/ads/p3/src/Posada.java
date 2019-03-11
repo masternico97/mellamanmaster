@@ -14,6 +14,7 @@ public class Posada {
     private String nombre;
     private int recuperacion;
     private List<Camino> caminos = new ArrayList<>();
+    private Luz luz;
 
     /**
      * Constructor de la clase posada que inicializa la recuperacion
@@ -21,7 +22,9 @@ public class Posada {
      * @param nombre nombre de la posada
      */
     public Posada(String nombre) {
-        this(nombre, 2);
+        this.nombre = nombre;
+        this.recuperacion = 2;
+        this.luz = Luz.BLANCA;
     }
 
     /**
@@ -32,10 +35,17 @@ public class Posada {
     public Posada(String nombre, int recuperacion) {
         this.nombre = nombre;
         this.recuperacion = recuperacion;
+        this.luz = Luz.BLANCA;
+    }
+
+    public Posada(String nombre, int recuperacion, Luz luz) {
+        this.nombre = nombre;
+        this.recuperacion = recuperacion;
+        this.luz = luz;
     }
 
     public String toString() {
-        return nombre+"("+recuperacion+")"+caminos.toString();
+        return nombre+"(Recuperacion: "+recuperacion+", Iluminacion: "+luz+")"+caminos.toString();
     }
 
     public String getNombre() {
@@ -46,6 +56,13 @@ public class Posada {
         return recuperacion;
     }
 
+    /**
+     * Devuelve el camino con destino una posada especifica
+     * Si hay más de uno que llevan  a la misma posada
+     * se devuelve el primero que se encontro
+     * @param destino nombre de la posada
+     * @return camino encontrado
+     */
     public Camino getCamino(int posicion) {
         return caminos.get(posicion);
     }
@@ -54,14 +71,6 @@ public class Posada {
         return caminos.size();
     }
 
-    /**
-     * Devuelve el camino con destino una posada especifica
-     * Si hay más de uno que llevan  a la misma posada
-     * se devuelve el primero que se encontro
-     * @param destino nombre de la posada
-     * @return camino encontrado
-     */
-
     public Camino getCamino(Posada destino){
         for(Camino current: caminos){
             if(current.getDestino() == destino) {
@@ -69,6 +78,10 @@ public class Posada {
             }
         }
         return null;
+    }
+
+    public Luz getLuz() {
+      return luz;
     }
 
     /**
@@ -82,5 +95,13 @@ public class Posada {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Modifica la luz de una posada
+     * @param luz luz
+     */
+    public void cambiarLuz(Luz luz) {
+      this.luz = luz;
     }
 }

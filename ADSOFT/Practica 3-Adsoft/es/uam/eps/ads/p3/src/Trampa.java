@@ -10,7 +10,7 @@ import java.lang.Math;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de prácticas: 2213
  */
-public class Trampa extends to Camino {
+public class Trampa extends Camino {
     private float factorCoste;
     private float probRetorno;
 
@@ -28,7 +28,12 @@ public class Trampa extends to Camino {
     public Trampa(Posada origen, Posada destino, int coste, float factorCoste, float probRetorno) {
         super(origen, destino, coste);
         this.factorCoste = factorCoste;
-        this.probRetorno = probRetorno;
+        if(probRetorno > 0 && probRetorno <= 1){
+            this.probRetorno = probRetorno;
+        }
+        else {
+            this.probRetorno = 0;
+        }
     }
 
     public float getFactorCoste() {
@@ -39,14 +44,20 @@ public class Trampa extends to Camino {
         return probRetorno;
     }
 
+    @Override
     public Posada getDestino() {
         if(Math.random() <= probRetorno) {
-            return origen;
+            return super.getOrigen();
         }
-        return destino;
+        return super.getDestino();
     }
 
     public int costeEspecial() {
-        return Math.round(coste*factorCoste);
+        return Math.round(super.getCoste()*factorCoste);
+    }
+
+    @Override
+    public String toString() {
+        return "(Ruta: "+super.getOrigen().getNombre()+"--"+getCoste()+"-->"+super.getDestino().getNombre()+". Factor coste: "+getFactorCoste()+", Probabilidad retorno: "+getProbRetorno()+")";
     }
 }

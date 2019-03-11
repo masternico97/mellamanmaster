@@ -37,6 +37,8 @@ public class Explorador {
 
     public boolean recorre(Camino camino) {
 
+        Posada posadaAux;
+
         if(camino == null) {
             return false;
         }
@@ -44,9 +46,12 @@ public class Explorador {
         for(int i = 0; i < getPosicion().getNumCaminos(); i++) {
             if(camino == getPosicion().getCamino(i)) {
                 if(puedeRecorrerCamino(camino) && puedeAlojarseEn(camino.getDestino())){
-                  this.energia -= camino.costeReal();
-                  this.energia += camino.getDestino().getRecuperacion();
+                  posadaAux = this.posicion;
                   this.posicion = camino.getDestino();
+                  if(posadaAux != this.posicion) {
+                      this.energia -= camino.costeReal();
+                      this.energia += camino.getDestino().getRecuperacion();
+                  }
                   return true;
                 }
             }
@@ -75,7 +80,7 @@ public class Explorador {
         return false;
     }
 
-    private boolean puedeAlojarseEn(Posada posada) {
+    public boolean puedeAlojarseEn(Posada posada) {
         return true;
     }
 }
