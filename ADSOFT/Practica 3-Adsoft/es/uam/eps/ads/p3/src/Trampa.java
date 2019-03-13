@@ -51,9 +51,15 @@ public class Trampa extends Camino {
         }
         return super.getDestino();
     }
-
+    
+    @Override
     public int costeEspecial() {
         return Math.round(super.getCoste()*factorCoste);
+    }
+    
+    @Override
+    public boolean esTrampa() {
+        return true;
     }
 
     @Override
