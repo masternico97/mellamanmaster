@@ -69,7 +69,7 @@ public class Camino {
     }
 
     int costeReal() {
-        return coste;
+        return coste + costeEspecial();
     }
 
     boolean esTrampa() {
