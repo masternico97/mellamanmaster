@@ -23,8 +23,8 @@ public class Mago extends Explorador {
       HECHICERO;
     }
 
-    int poder;
-    TipoDeMago tipo;
+    private int poder;
+    private TipoDeMago tipo;
 
     public Mago(String nombre, int energia, Posada posicion, int poder, TipoDeMago tipo){
         super(nombre, energia, posicion);
