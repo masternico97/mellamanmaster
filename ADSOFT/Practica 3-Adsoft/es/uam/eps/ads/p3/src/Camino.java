@@ -64,15 +64,15 @@ public class Camino {
         return "("+origen.getNombre()+"--"+getCoste()+"-->"+destino.getNombre()+")";
     }
 
-    int costeEspecial() {
+    public int costeEspecial() {
         return 0;
     }
 
-    int costeReal() {
+    public int costeReal() {
         return coste + costeEspecial();
     }
 
-    boolean esTrampa() {
+    public boolean esTrampa() {
         return false;
     }
 }
