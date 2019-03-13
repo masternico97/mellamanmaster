@@ -22,9 +22,7 @@ public class Posada {
      * @param nombre nombre de la posada
      */
     public Posada(String nombre) {
-        this.nombre = nombre;
-        this.recuperacion = 2;
-        this.luz = Luz.BLANCA;
+        this(nombre, 2, Luz.BLANCA);
     }
 
     /**
@@ -33,9 +31,7 @@ public class Posada {
      * @param recuperacion recuperacion de la posada
      */
     public Posada(String nombre, int recuperacion) {
-        this.nombre = nombre;
-        this.recuperacion = recuperacion;
-        this.luz = Luz.BLANCA;
+        this(nombre, recuperacion, Luz.BLANCA);
     }
 
     public Posada(String nombre, int recuperacion, Luz luz) {
