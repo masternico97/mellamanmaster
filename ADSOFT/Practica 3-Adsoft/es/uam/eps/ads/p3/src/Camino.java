@@ -42,6 +42,10 @@ public class Camino {
         return destino;
     }
 
+    public Posada getDestinoReal() {
+        return destino;
+    }
+
     public int getCoste(){
         return coste;
     }

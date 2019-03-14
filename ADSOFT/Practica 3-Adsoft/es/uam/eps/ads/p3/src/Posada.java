@@ -69,7 +69,7 @@ public class Posada {
 
     public Camino getCamino(Posada destino){
         for(Camino current: caminos){
-            if(current.getDestino() == destino) {
+            if(current.getDestinoReal() == destino) {
                 return current;
             }
         }
@@ -86,10 +86,12 @@ public class Posada {
      * @return camino encontrado
      */
     public boolean addCamino(Camino camino) {
-        if(nombre.equals(camino.getOrigen().getNombre()) && !(nombre.equals(camino.getDestino().getNombre()))){
+        if(nombre.equals(camino.getOrigen().getNombre()) && !(nombre.equals(camino.getDestinoReal().getNombre()))){
             caminos.add(camino);
             return true;
         }
+        System.out.println("ganamos");
+
         return false;
     }
 

@@ -12,7 +12,7 @@ import java.lang.Math;
  */
 public class Trampa extends Camino {
     private float factorCoste;
-    private float probRetorno;
+    private double probRetorno;
 
     /**
      * Constructor de la clase trampa
@@ -25,7 +25,7 @@ public class Trampa extends Camino {
      * @param probRetorno probabilidad (0,1] de que el camino no
      * te desplace
      */
-    public Trampa(Posada origen, Posada destino, int coste, float factorCoste, float probRetorno) {
+    public Trampa(Posada origen, Posada destino, int coste, float factorCoste, double probRetorno) {
         super(origen, destino, coste);
         this.factorCoste = factorCoste;
         if(probRetorno > 0 && probRetorno <= 1){
@@ -40,7 +40,7 @@ public class Trampa extends Camino {
         return factorCoste;
     }
 
-    public float getProbRetorno() {
+    public double getProbRetorno() {
         return probRetorno;
     }
 
@@ -51,12 +51,12 @@ public class Trampa extends Camino {
         }
         return super.getDestino();
     }
-    
+
     @Override
     public int costeEspecial() {
         return Math.round(super.getCoste()*factorCoste);
     }
-    
+
     @Override
     public boolean esTrampa() {
         return true;
@@ -64,6 +64,6 @@ public class Trampa extends Camino {
 
     @Override
     public String toString() {
-        return "(Ruta: "+super.getOrigen().getNombre()+"--"+getCoste()+"-->"+super.getDestino().getNombre()+". Factor coste: "+getFactorCoste()+", Probabilidad retorno: "+getProbRetorno()+")";
+        return "(Ruta: "+super.getOrigen().getNombre()+"--"+getCoste()+"-->"+super.getDestino().getNombre()+". Factor coste: "+getFactorCoste()+", Probabilidad retorno: "+probRetorno+")";
     }
 }

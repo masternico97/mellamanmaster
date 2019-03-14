@@ -14,9 +14,6 @@ public class Mago extends Explorador {
     /**
      * Enumeración TipoDeMago con los distintos
      * tipos de mago existentes
-     * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
-     * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
-     * Grupo de practicas: 2213
      */
     public enum TipoDeMago {
       HADA,
@@ -37,6 +34,8 @@ public class Mago extends Explorador {
      */
     @Override
     public boolean puedeAlojarseEn(Posada posada) {
+      System.out.println(posada.getLuz().ordinal());
+
         if(tipo == TipoDeMago.HADA) {
             if(posada.getLuz().ordinal() > 3){
                 return true;
@@ -45,6 +44,33 @@ public class Mago extends Explorador {
         else {
             if(posada.getLuz().ordinal() <= 2 + poder) {
                 return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean recorre(Camino camino) {
+
+        Posada p;
+        Posada posadaAux;
+
+        if(camino == null) {
+            return false;
+        }
+
+        for(int i = 0; i < getPosicion().getNumCaminos(); i++) {
+            if(camino == getPosicion().getCamino(i) ) {
+                p = camino.getDestino();
+                if(puedeRecorrerCamino(camino) && puedeAlojarseEn(p) && !camino.esTrampa()){
+                    posadaAux = getPosicion();
+                    setPosicion(p);
+                    if(posadaAux != getPosicion()) {
+                        setEnergia(getEnergia() - camino.costeReal());
+                        setEnergia(getEnergia() + p.getRecuperacion());
+                    }
+                    return true;
+                }
             }
         }
         return false;

@@ -31,28 +31,38 @@ public class Explorador {
         return posicion;
     }
 
+    public void setPosicion(Posada p) {
+        posicion = p;
+    }
+
+    public void setEnergia(int e) {
+        energia = e;
+    }
+
     public String toString() {
         return getNombre()+" (e:"+getEnergia()+") en "+getPosicion().getNombre();
     }
 
     public boolean recorre(Camino camino) {
 
+        Posada p;
         Posada posadaAux;
 
         if(camino == null) {
             return false;
         }
-
         for(int i = 0; i < getPosicion().getNumCaminos(); i++) {
             if(camino == getPosicion().getCamino(i)) {
-                if(puedeRecorrerCamino(camino) && puedeAlojarseEn(camino.getDestino())){
-                  posadaAux = this.posicion;
-                  this.posicion = camino.getDestino();
-                  if(posadaAux != this.posicion) {
-                      this.energia -= camino.costeReal();
-                      this.energia += camino.getDestino().getRecuperacion();
-                  }
-                  return true;
+                p = camino.getDestino();
+                if(puedeRecorrerCamino(camino) && puedeAlojarseEn(p)){
+                    posadaAux = this.posicion;
+                    this.posicion = p;
+                    if(posadaAux != this.posicion) {
+                        this.energia -= camino.costeReal();
+                        this.energia += p.getRecuperacion();
+                        return true;
+                    }
+                    return false;
                 }
             }
         }
@@ -73,7 +83,7 @@ public class Explorador {
         return true;
     }
 
-    private boolean puedeRecorrerCamino(Camino camino) {
+    public boolean puedeRecorrerCamino(Camino camino) {
         if(this.energia > camino.costeReal()) {
             return true;
         }
