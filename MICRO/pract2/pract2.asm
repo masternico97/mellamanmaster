@@ -11,6 +11,7 @@ DATOS SEGMENT
 		
 	MATRIZ DB 10, 22, 211, 0, 11, 7, 244, 32, 12
 	ADET DB  "  |A|=	",'$'
+	IGUAL	DB "  = $"
 	MATRIZ_LEC	DB	42 DUP(0)
 	SOLUCION	DB	4 DUP (0)
 	SOL_ASCII	DB  14 DUP(0)		
@@ -18,11 +19,10 @@ DATOS SEGMENT
 	PREG_MODE 	DB 	1BH,"[10;1fElige el modo de empleo del programa $"
 	OPC_1		DB	1BH,"[11;1f1)Calcular el determinante con valores por defecto $"
 	OPC_2		DB	1BH,"[12;1f2)Calcular el determinante con valores introducidos por teclado $"
+	TEXTO_OPC_2	DB	1BH,"[14;1fIntroduce los nueve numeros del 0 al 255 separados por espacios, y con un espacio tras el ultimo numero: $"
 	ESCOGIDO	DB 	3 DUP (0)
-	TEXTO_OPC_2	DB	1BH,"[14;1fIntroduce los nueve numeros del 0 al 255 separados por espacios $"
-	IGUAL	DB "  = $"
-	ERR_CADENA	DB "El numero introducido es erroneo, pruebe de nuevo con 1 o 2.$"
-	NUM_LEIDOS	DB 0
+	ERR_CADENA	DB  1BH,"[13;1fEl numero introducido es erroneo, pruebe de nuevo con 1 o 2.$"
+	NUM_LEIDOS	DB  0
 	
 DATOS ENDS 
 
@@ -89,9 +89,7 @@ START PROC
 	
 	CMP AX, 2 ;SI SE HA ESCOGIDO 2 SALTA A LA RUTINA OPCION2
 	JE OPCION2 
-	
-	MOV DX, OFFSET ERR_CADENA
-	INT 21H
+
 	; FIN DEL PROGRAMA SI EL NUMERO INTRODUCIDO NO ES CORRECTO
     MOV AX, 4C00H 
     INT 21H 
