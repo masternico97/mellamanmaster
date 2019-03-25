@@ -3,8 +3,8 @@ package es.uam.eps.ads.p3;
 import java.util.*;
 
 public class ModeloDatosRecomendacion implements ModeloDatos {
-    Map<Long, Map<Long, Double>> preferenciasAllUsuarios = new TreeMap<>(); //Id usuario y mapa preferenciasItem
-    Map<Long, Map<Long, Double>> preferenciasAllItems = new TreeMap<>(); //Id item y mapa preferenciasUsuario
+    private Map<Long, Map<Long, Double>> preferenciasAllUsuarios = new TreeMap<>(); //Id usuario y mapa preferenciasItem
+    private Map<Long, Map<Long, Double>> preferenciasAllItems = new TreeMap<>(); //Id item y mapa preferenciasUsuario
 
     public ModeloDatosRecomendacion(String ruta) {
         leeFicheroPreferencias(ruta);
