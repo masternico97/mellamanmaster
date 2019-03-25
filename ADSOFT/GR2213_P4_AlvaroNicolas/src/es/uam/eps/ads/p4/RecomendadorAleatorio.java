@@ -1,4 +1,4 @@
-package es.uam.eps.ads.p3;
+package es.uam.eps.ads.p4;
 
 public class RecomendadorAleatorio implements Recomendador {
     Long usuario;
