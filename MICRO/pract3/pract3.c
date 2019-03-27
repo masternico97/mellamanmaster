@@ -7,7 +7,7 @@
  * Codigos de Barras
  *
  *********************************************************************/
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,7 +35,7 @@ int main( void ){
 	printf("Introduzca nuevo codigo de barras de 13 digitos: ");
 	scanf("%s", &barCodeStr);
 
-		
+
 	decodeBarCode(barCodeStr, &countryCode, &companyCode, &productCode, &controlDigit);
 	printf("Codigo de barras leido:\n");
 	printf("- Codigo de Pais - %u -\n",countryCode);
@@ -44,7 +44,7 @@ int main( void ){
 	printf("- Codigo de Control - %u -\n",controlDigit);
 
 	controlDigitCheck = computeControlDigit(barCodeStr);
-	
+
 	if(controlDigit != controlDigitCheck){
 		printf("Error en codigo de control. Leido %u vs Calculado %u\n", controlDigit, controlDigitCheck);
 		printf("Corrigiendo codigo de barras...\n");
@@ -54,7 +54,7 @@ int main( void ){
 	else{
 		printf("Codigo de control %u es correcto para el codigo de barras %s\n", controlDigit, barCodeStr);
 	}
-	
-	
+
+
 	return 0;
 }
