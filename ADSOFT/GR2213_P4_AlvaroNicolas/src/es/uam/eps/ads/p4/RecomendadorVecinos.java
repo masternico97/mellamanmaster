@@ -25,8 +25,10 @@ public class RecomendadorVecinos implements Recomendador {
         Similitud similitud = new SimilitudCoseno();
         Set<Long> userItems;
 
-        if(longitudRecomendacion <= 0 || !datos.getUsuariosUnicos().contains(u)){
-            throw new RecomendacionInvalida();
+        if(longitudRecomendacion <= 0){
+            throw new RecomendacionInvalida(longitudRecomendacion);
+        } else if (!datos.getUsuariosUnicos().contains(u)){
+            throw new RecomendacionInvalida(u);
         }
 
         /** Se calcula la similitud entre todos los vecinos */
