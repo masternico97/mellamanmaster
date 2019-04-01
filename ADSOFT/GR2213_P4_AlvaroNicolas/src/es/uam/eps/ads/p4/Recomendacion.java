@@ -14,4 +14,8 @@ public class Recomendacion {
         recomendaciones.add(recomendacion);
     }
 
+    public String toString() {
+      return "Recomendacion [usuario="+usuario+", recomendaciones="+recomendaciones+"]";
+    }
+
 }

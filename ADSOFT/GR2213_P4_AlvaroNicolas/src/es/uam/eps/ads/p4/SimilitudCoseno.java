@@ -5,9 +5,9 @@ import java.util.*;
 
 public class SimilitudCoseno implements Similitud {
 
-    private ModeloDatosRecomendacion modelo;
+    private ModeloDatos modelo;
 
-    public SimilitudCoseno(ModeloDatosRecomendacion modelo) {
+    public SimilitudCoseno(ModeloDatos modelo) {
       this. modelo = modelo;
     }
 

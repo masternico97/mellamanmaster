@@ -27,4 +27,8 @@ public class Tupla implements Comparable<Tupla> {
     public Double getScore(){
         return score;
     }
+
+    public String toString(){
+      return "Tupla [elemento="+id+", valor="+score+"]";
+    }
 }

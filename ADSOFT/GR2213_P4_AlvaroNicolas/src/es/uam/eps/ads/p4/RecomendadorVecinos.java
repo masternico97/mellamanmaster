@@ -22,7 +22,7 @@ public class RecomendadorVecinos implements Recomendador {
         List<Tupla> similitudDeVecinos = new ArrayList<>();
         List<Tupla> recomendaciones = new ArrayList<>();
         Recomendacion recomendacion = new Recomendacion(u);
-        Similitud similitud = new SimilitudCoseno();
+        Similitud similitud = new SimilitudCoseno(datos);
         Set<Long> userItems;
 
         if(longitudRecomendacion <= 0){
@@ -33,7 +33,7 @@ public class RecomendadorVecinos implements Recomendador {
 
         /** Se calcula la similitud entre todos los vecinos */
         for(Long v : datos.getUsuariosUnicos()){
-            if(u != v){
+            if(!u.equals(v)){
                 similitudDeVecinos.add(new Tupla(v, similitud.sim(u, v)));
             }
         }
@@ -74,5 +74,4 @@ public class RecomendadorVecinos implements Recomendador {
         }
         return 0;
     }
-
 }
