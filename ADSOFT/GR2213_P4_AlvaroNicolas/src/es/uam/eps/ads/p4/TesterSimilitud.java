@@ -2,9 +2,9 @@ package es.uam.eps.ads.p4;
 
 public class TesterSimilitud {
     public static void main(String[] args) {
-        ModeloDatosRecomendacion modelo = new ModeloDatosRecomendacion("../txt/PruebaTraining.txt");
-        SimilitudCoseno similitudCos = new SimilitudCoseno(modelo);
-        RecomendadorVecinos recomendador = new RecomendadorVecinos(modelo, 2);
+        ModeloDatos modelo = new ModeloDatosRecomendacion("../txt/PruebaTraining.txt");
+        Similitud similitudCos = new SimilitudCoseno(modelo);
+        Recomendador recomendador = new RecomendadorVecinos(modelo, 2);
         Recomendacion recomendacion = new Recomendacion((long) 190);
         double similitud;
 
