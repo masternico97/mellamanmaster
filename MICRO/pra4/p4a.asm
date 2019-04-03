@@ -11,8 +11,7 @@ codigo SEGMENT
 inicio: jmp instalador
 
 ; Variables globales
-tablaDB ''abcdf ''
-flag DW 0
+tabla DB 234 ;DIGITO DE CONTROL QUE COMPROBARÁ SI EL PRORGRAMA ESTÁ INSTALADO
 ; Rutina de servicio a la interrupción
 rsi PROC FAR
 	CMP AH, 10H
