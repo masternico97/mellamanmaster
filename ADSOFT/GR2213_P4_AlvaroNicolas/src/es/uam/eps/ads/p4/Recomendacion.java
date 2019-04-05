@@ -18,4 +18,11 @@ public class Recomendacion {
       return "Recomendacion [usuario="+usuario+", recomendaciones="+recomendaciones+"]";
     }
 
+    public List<Tupla> getRecomendaciones() {
+        return recomendaciones;
+    }
+
+    public Long getUsuario() {
+        return usuario;
+    }
 }
