@@ -2,11 +2,10 @@ package es.uam.eps.ads.p4;
 
 import java.util.*;
 
-public class RecomendadorAleatorio implements Recomendador {
-    private ModeloDatos datos;
+public class RecomendadorAleatorio extends RecomendadorGeneral implements Recomendador {
 
     public RecomendadorAleatorio(ModeloDatos datos){
-        this.datos = datos;
+        super(datos);
     }
 
     public Recomendacion recomienda(Long u, int longitudRecomendacion) throws RecomendacionInvalida {
@@ -35,11 +34,5 @@ public class RecomendadorAleatorio implements Recomendador {
             recomendacion.addRecomendacion(recomendaciones.get(i));
         }
         return recomendacion;
-    }
-
-    /** Devuelve los items que tiene un usuario
-     */
-    private Set<Long> itemsInUsuario(Long u){
-        return datos.getPreferenciasUsuario(u).keySet();
     }
 }

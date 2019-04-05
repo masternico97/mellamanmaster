@@ -2,37 +2,29 @@ package es.uam.eps.ads.p4;
 
 import java.util.*;
 
-public class MetricaPrecision implements Metrica {
+/**
+ * Clase abstracta MetricaPrecision con el metodo evalua especifico para este tipo
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
+public class MetricaPrecision extends MetricaGeneral implements Metrica {
 
-    private ModeloDatos modeloTest;
-    private double notaMinima;
-
+    /**
+     * Constructor de la clase MetricaPrecision
+     * @param modeloTest = ModeloDatos que usaremos en esta metrica
+     * @param notaMinima = nota minima de los articulos que apareceran
+     */
     public MetricaPrecision (ModeloDatos modeloTest, double notaMinima) {
-        this.modeloTest = modeloTest;
-        if(notaMinima < 1) {
-            this.notaMinima = 1;
-        }
-        else if(notaMinima > 5) {
-            this.notaMinima = 5;
-        }
-        else {
-            this.notaMinima = notaMinima;
-        }
+        super(modeloTest, notaMinima);
     }
 
-    @Override
-    public Set<Long> getItemsRelevantes(Long u) {
-        Set<Long> itemsRelevantes = new HashSet<>();
-        Map<Long, Double> preferenciasUsuario = modeloTest.getPreferenciasUsuario(u);
-
-        for(Map.Entry<Long, Double> entry : preferenciasUsuario.entrySet()) {
-            if(entry.getValue() >= notaMinima) {
-                itemsRelevantes.add(entry.getKey());
-            }
-        }
-        return itemsRelevantes;
-    }
-
+    /**
+     * Metodo que mide las diferencias entre dos listas y nos indica cuanto se
+     * asemejan (0,1)
+     * @param rec = recomendacion que usaremos para comparar con los itemsRelevantes
+     * @param n = primeros n articulos de la lista obtenida del recomendador
+     */
     @Override
     public double evalua(Recomendacion rec, int n) throws UsuarioNoRelevante {
         Set<Long> itemsRelevantes = getItemsRelevantes(rec.getUsuario());

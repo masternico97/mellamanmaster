@@ -6,7 +6,6 @@ package es.uam.eps.ads.p4;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-
 public class Apartado5{
     private static final int NUM_VECINOS = 100;
     private static final int NOTA_MIN = 3;
@@ -39,12 +38,15 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador de Vecinos original");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-        
+
+        evaluaPrecision = 0;
+        evaluaRecall = 0;
+
         /* Metricas de Recomendador de vecinos con datos modificados de la practica */
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
@@ -55,12 +57,15 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador de Vecinos modificada");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-    	
+
+        evaluaPrecision = 0;
+        evaluaRecall = 0;
+
         /* Metricas de Recomendador de Popularidad con datos dados de la practica */
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
@@ -71,12 +76,15 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador de Popularidad original");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-    
+
+        evaluaPrecision = 0;
+        evaluaRecall = 0;
+
         /* Metricas de Recomendador de Popularidad con datos modificados de la practica */
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
@@ -87,12 +95,15 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador de Popularidad moficado");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-    
+
+        evaluaPrecision = 0;
+        evaluaRecall = 0;
+
         /* Metricas de Recomendador Aleatorio con datos dados de la practica */
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
@@ -103,12 +114,15 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador Aleatorio original");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-    
+
+        evaluaPrecision = 0;
+        evaluaRecall = 0;
+
         /* Metricas de Recomendador Aleatorio con datos modificados de la practica */
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
@@ -119,13 +133,10 @@ public class Apartado5{
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
             	System.out.println(e);
-            }            
+            }
         }
         System.out.println("\nRecomendador Aleatorio modificado");
         System.out.println("Metrica precision: "+evaluaPrecision/modeloMetrica.getUsuariosUnicos().size());
         System.out.println("Metrica recall: "+evaluaRecall/modeloMetrica.getUsuariosUnicos().size());
-    
     }
-    
-
 }

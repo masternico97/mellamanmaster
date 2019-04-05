@@ -2,14 +2,11 @@ package es.uam.eps.ads.p4;
 
 import java.util.*;
 
-public class RecomendadorVecinos implements Recomendador {
-    private ModeloDatos datos;
+public class RecomendadorVecinos extends RecomendadorGeneral implements Recomendador {
     private int vecinos;
 
-
-
     public RecomendadorVecinos(ModeloDatos datos, int numVecinos){
-        this.datos = datos;
+        super(datos);
         if(numVecinos <= 0){
             vecinos = 5;
         } else {
@@ -60,12 +57,6 @@ public class RecomendadorVecinos implements Recomendador {
             recomendacion.addRecomendacion(recomendaciones.get(i));
         }
         return recomendacion;
-    }
-
-    /** Devuelve los items que tiene un usuario
-    */
-    private Set<Long> itemsInUsuario(Long u){
-        return datos.getPreferenciasUsuario(u).keySet();
     }
 
     private double userGetItemScore(Long user, Long item){
