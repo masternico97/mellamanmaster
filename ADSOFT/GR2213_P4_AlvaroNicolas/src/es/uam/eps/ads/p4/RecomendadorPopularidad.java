@@ -37,7 +37,7 @@ public class RecomendadorPopularidad extends RecomendadorGeneral implements Reco
         /** Se ordena esas recomendaciones de mayor a menor */
         Collections.sort(recomendaciones, Collections.reverseOrder());
 
-        /** Se van insertando de mayor a menos longitudRecomendacion elementos */
+        /** Se van insertando de mayor a menor longitudRecomendacion elementos */
         for(int i = 0; i < longitudRecomendacion; i++){
             recomendacion.addRecomendacion(recomendaciones.get(i));
         }

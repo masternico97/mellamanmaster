@@ -28,6 +28,9 @@ public class MetricaPrecision extends MetricaGeneral implements Metrica {
     @Override
     public double evalua(Recomendacion rec, int n) throws UsuarioNoRelevante {
         Set<Long> itemsRelevantes = getItemsRelevantes(rec.getUsuario());
+        if(itemsRelevantes.size() == 0) {
+          throw new UsuarioNoRelevante(0);
+        }
         List<Tupla> recomendaciones = rec.getRecomendaciones();
         double contador = 0;
 
