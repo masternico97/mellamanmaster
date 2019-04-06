@@ -8,7 +8,7 @@ import java.util.*;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public class MetricaPrecision extends MetricaGeneral implements Metrica {
+public class MetricaPrecision extends MetricaGeneral {
 
     /**
      * Constructor de la clase MetricaPrecision

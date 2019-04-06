@@ -8,7 +8,7 @@ import java.util.*;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public class MetricaRecall extends MetricaGeneral implements Metrica {
+public class MetricaRecall extends MetricaGeneral {
 
     /**
      * Constructor de la clase MetricaRecall
@@ -24,6 +24,7 @@ public class MetricaRecall extends MetricaGeneral implements Metrica {
      * asemejan (0,1)
      * @param rec = recomendacion que usaremos para comparar con los itemsRelevantes
      * @param n = primeros n articulos de la lista obtenida del recomendador
+     * @return double = numero decimal de 0 a 1
      */
     @Override
     public double evalua(Recomendacion rec, int n) throws UsuarioNoRelevante {

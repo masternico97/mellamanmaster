@@ -1,5 +1,11 @@
 package es.uam.eps.ads.p4;
 
+/**
+ * Clase TesterSimilitud para comprobar el modulo similitud y recomendador
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
 public class TesterSimilitud {
     public static void main(String[] args) {
         ModeloDatos modelo = new ModeloDatosRecomendacion("../txt/PruebaTraining.txt");

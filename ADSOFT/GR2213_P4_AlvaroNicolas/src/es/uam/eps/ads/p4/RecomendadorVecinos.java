@@ -2,9 +2,20 @@ package es.uam.eps.ads.p4;
 
 import java.util.*;
 
-public class RecomendadorVecinos extends RecomendadorGeneral implements Recomendador {
+/**
+ * Clase RecomendadorVecinos que recomienda usuarios por similitud
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
+public class RecomendadorVecinos extends RecomendadorGeneral {
     private int vecinos;
 
+    /**
+     * Constructor de la clase RecomendadorVecinos
+     * @param datos = ModeloDatos que usaremos en esta clase
+     * @param numVecinos = numero de vecinos usados
+     */
     public RecomendadorVecinos(ModeloDatos datos, int numVecinos){
         super(datos);
         if(numVecinos <= 0){
@@ -14,6 +25,12 @@ public class RecomendadorVecinos extends RecomendadorGeneral implements Recomend
         }
     }
 
+    /**
+     * Metodo que aconseja al usuario segun los gustos similares de otros usuarios
+     * @param u = usuario u
+     * @param longitudRecomendacion = longitud que tendra la recomendacion producida
+     * @return double = numero decimal de 0 a 1
+     */
     public Recomendacion recomienda(Long u, int longitudRecomendacion) throws RecomendacionInvalida {
 
         List<Tupla> similitudDeVecinos = new ArrayList<>();

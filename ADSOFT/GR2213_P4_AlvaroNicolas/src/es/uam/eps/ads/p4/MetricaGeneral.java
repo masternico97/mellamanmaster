@@ -34,7 +34,7 @@ public abstract class MetricaGeneral implements Metrica {
     /**
      * Metodo para conseguir los items mas relevantes de un determinado usuario
      * @param u = usuario a obtener datos
-     * @return Set<Long> = set de los items mas relevantes del usuario, con nota
+     * @return Set = set de los items mas relevantes del usuario, con nota
      * mayor a notaMinima
      */
     @Override

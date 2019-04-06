@@ -3,14 +3,30 @@ package es.uam.eps.ads.p4;
 import java.lang.Math;
 import java.util.*;
 
+/**
+ * Clase SimilitudCoseno para calcular la similitud de dos usuarios a partir de
+ * un modelo
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
 public class SimilitudCoseno implements Similitud {
 
     private ModeloDatos modelo;
 
+    /**
+     * Constructor de la clase SimilitudCoseno
+     * @param modelo = modelo que usaremos para la similitud
+     */
     public SimilitudCoseno(ModeloDatos modelo) {
       this. modelo = modelo;
     }
 
+    /**
+     * Metodo que calcula la similitud de u y v
+     * @param u = usuario u
+     * @param v = usuario v
+     */
     public double sim(Long u, Long v){
         double numerador = 0;
         double denomU = 0;
