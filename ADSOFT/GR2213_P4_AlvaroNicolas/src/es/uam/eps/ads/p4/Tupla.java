@@ -15,6 +15,10 @@ public class Tupla implements Comparable<Tupla> {
             return 1;
         } else if (score < comparacion.getScore()) {
             return -1;
+        } else if (id > comparacion.getId()){
+            return 1;
+        } else if (id < comparacion.getId()){
+            return -1;
         } else {
             return 0;
         }

@@ -3,7 +3,7 @@ package es.uam.eps.ads.p4;
 import java.util.*;
 
 /**
- * Clase abstracta MetricaPrecision con el metodo evalua especifico para este tipo
+ * Clase MetricaPrecision con el metodo evalua especifico para este tipo
  * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
@@ -28,11 +28,12 @@ public class MetricaPrecision extends MetricaGeneral implements Metrica {
     @Override
     public double evalua(Recomendacion rec, int n) throws UsuarioNoRelevante {
         Set<Long> itemsRelevantes = getItemsRelevantes(rec.getUsuario());
+        List<Tupla> recomendaciones = rec.getRecomendaciones();
+        double contador = 0;
+
         if(itemsRelevantes.size() == 0) {
           throw new UsuarioNoRelevante(0);
         }
-        List<Tupla> recomendaciones = rec.getRecomendaciones();
-        double contador = 0;
 
         for(int i = 0; i < recomendaciones.size() && i < n; i++) {
             if(itemsRelevantes.contains(recomendaciones.get(i).getId())) {
