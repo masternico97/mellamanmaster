@@ -91,7 +91,7 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorPopularidad.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecisionModificadaModificada.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaPrecision += metricaPrecisionModificada.evalua(recomendacion, TAM_RECOMENDACION);
                 evaluaRecall += metricaRecallModificada.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
