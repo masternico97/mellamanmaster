@@ -20,6 +20,8 @@ public class Apartado5{
         Recomendacion recomendacion;
         Metrica metricaPrecision = new MetricaPrecision(modeloMetrica, NOTA_MIN);
         Metrica metricaRecall = new MetricaRecall(modeloMetrica, NOTA_MIN);
+        Metrica metricaPrecisionModificada = new MetricaPrecision(modeloMetrica, NOTA_MIN+1);
+        Metrica metricaRecallModificada = new MetricaRecall(modeloMetrica, NOTA_MIN+1);
         double evaluaPrecision = 0;
         double evaluaRecall = 0;
 
@@ -32,8 +34,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorVecinos.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN);
+                evaluaPrecision += metricaPrecision.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecall.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
@@ -51,8 +53,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorVecinos.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN+1);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN+1);
+                evaluaPrecision += metricaPrecisionModificada.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecallModificada.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
@@ -70,8 +72,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorPopularidad.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN);
+                evaluaPrecision += metricaPrecision.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecall.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
@@ -89,8 +91,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorPopularidad.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN+1);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN+1);
+                evaluaPrecision += metricaPrecisionModificadaModificada.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecallModificada.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
@@ -108,8 +110,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorAleatorio.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN);
+                evaluaPrecision += metricaPrecision.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecall.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
@@ -127,8 +129,8 @@ public class Apartado5{
         for(long current_user: modeloMetrica.getUsuariosUnicos()){
             try{
                 recomendacion = recomendadorAleatorio.recomienda(current_user, TAM_RECOMENDACION);
-                evaluaPrecision += metricaPrecision.evalua(recomendacion, NOTA_MIN+1);
-                evaluaRecall += metricaRecall.evalua(recomendacion, NOTA_MIN+1);
+                evaluaPrecision += metricaPrecisionModificada.evalua(recomendacion, TAM_RECOMENDACION);
+                evaluaRecall += metricaRecallModificada.evalua(recomendacion, TAM_RECOMENDACION);
             } catch(RecomendacionInvalida e) {
                 System.out.println(e);
             } catch(UsuarioNoRelevante e) {
