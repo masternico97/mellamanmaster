@@ -40,7 +40,7 @@ public class RecomendadorPopularidad extends RecomendadorGeneral {
             if(!userItems.contains(currentItem)){
                 double itemScore = 0;
                 for(Long v : datos.getUsuariosUnicos()){
-                    if(u.equals(v)){
+                    if(!u.equals(v)){
                         if(itemsInUsuario(v).contains(currentItem)){
                             itemScore++;
                         }
