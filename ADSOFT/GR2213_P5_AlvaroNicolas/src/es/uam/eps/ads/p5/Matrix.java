@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Matrix {
 
-    private LinkedList<IMatrixElement> matrix = new LinkedList<>();
+    private List<IMatrixElement<T>> matrix = new LinkedList<>();
     private int numColumnas;
     private int numFilas;
 
@@ -75,9 +75,50 @@ public class Matrix {
         if(isLegalPosition(i, j)) {
             throw new IllegalPositionException(i, j);
         }
+
+        for(IMatrixElement e : matrix) {
+            if(e.getI() == i && e.getJ() == j) {
+                return e;
+            }
+        }
+        return null;
     }
-    public List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException;
-    public List<IMatrixElement<T>> asList();
+    public List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException {
+        List<IMatrixElement<T>> listaVecinos = new LinkedList<>();
+        IMatrixElement<T> elementoAux;
 
+        if(isLegalPosition(i, j)) {
+            throw new IllegalPositionException(i, j);
+        }
 
+        //Vecino del norte
+        elementoAux = getElementAt(i-1, j);
+        if(elementoAux != null) {
+            listaVecinos.add(elementoAux);
+        }
+
+        //Vecino del sur
+        elementoAux = getElementAt(i+1, j);
+        if(elementoAux != null) {
+            listaVecinos.add(elementoAux);
+        }
+
+        //Vecino del oeste
+        elementoAux = getElementAt(i, j-1);
+        if(elementoAux != null) {
+            listaVecinos.add(elementoAux);
+        }
+
+        //Vecino del este
+        elementoAux = getElementAt(i, j+1);
+        if(elementoAux != null) {
+            listaVecinos.add(elementoAux);
+        }
+
+        return listaVecinos;
+
+    }
+    public List<IMatrixElement<T>> asList() {
+        return matrix;
+    }
 }
