@@ -43,7 +43,7 @@ public class MatrixElement<T> {
         if(obj == this){
             return true;
         }
-        if(!(obj instanceof MatrixElement<T>)){
+        if(!(obj instanceof MatrixElement)){
             return false;
         }
         MatrixElement<T> comparing = (MatrixElement<T>)obj;
