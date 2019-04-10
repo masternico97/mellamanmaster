@@ -8,39 +8,72 @@
 codigo SEGMENT
 	ASSUME cs : codigo
 	ORG 256
-inicio: jmp instalador
+inicio: jmp INSTALADOR
 
-; Variables globales
-tabla DB 234 ;DIGITO DE CONTROL QUE COMPROBARÁ SI EL PRORGRAMA ESTÁ INSTALADO
 ; Rutina de servicio a la interrupción
 rsi PROC FAR
 	CMP AH, 10H
 	JZ OPCION_10H
 	CMP AH, 11H
 	JZ OPCION_11H
-
-FIN:
-	iret
-
+	
 OPCION_10H:
 	CALL CODIFICADOR
 	
 OPCION_11H:
 	CALL DECODIFICADOR
 
+FIN:
+	iret
+	
 rsi ENDP
 
 ;FUNCION QUE CODIFICA EL CODIGO DE ASCII A POLIBIO
-CODIFICADOR PROC
+CODIFICADOR PROC NEAR
 
 CODIFICADOR ENDP
 
 ;FUNCION QUE DECODIFICA EL CODIGO DE ASCII A POLIBIO
-DECODIFICADOR PROC
+DECODIFICADOR PROC NEAR
 
 DECODIFICADOR ENDP
 
-instalador PROC
+INSTALADOR PROC
+	MOV SI, ES:[80h]
+LEER_PSP:
+	MOV DL, ES:[SI]+81h	;Leemos los caracteres de entrada de derecha a izquierda
+	CMP DL, '/'
+	JE MODO
+	dec SI
+	JNE LEER_PSP
+	
+	
+MODO:
+	MOV DL, ES:[SI]+81h+1	;Leemos los caracter despues de /
+	CMP DL, 'D'
+	JE INSTALAR
+	CMP DL, 'I'
+	JE DESINSTALAR
+	
+DESINSTALAR:
+	MOV AX, ES:[ 57h*4 ]
+	MOV BX, ES:[ 57h*4+2 ]
+	
+	ADD AX, BX
+	JE FIN_DESINSTALAR	;SI AMBOS SON 0 EL PROGRAMA NO ESTA INSTALADO Y NO SE DEBE DESISNTALAR
+	
+	CALL DESINSTALAR_57H
+	
+FIN_DESINSTALAR: 
+	INT 21h
+
+INSTALAR:
+	MOV AX, ES:[ 57h*4 ]
+	MOV BX, ES:[ 57h*4+2 ]
+	
+	ADD AX, BX
+	JNE FIN_INSTALAR	;SI NO SON 0 EL PROGRAMA ESTA INSTALADO Y NO SE DEBE DESISNTALAR
+
 	mov ax, 0
 	mov es, ax
 	mov ax, OFFSET rsi
@@ -50,12 +83,14 @@ instalador PROC
 	mov es:[ 57h*4+2 ], bx
 	sti
 	mov
-	dx, OFFSET instalador 
+	dx, OFFSET INSTALADOR 
+
 	int 27h ;  Acaba y deja residente
 			;  PSP, variables y rutina rsi.
-instalador ENDP
+	ret
+INSTALADOR ENDP
 
-desinstalar_57h PROC	; Desinstala RSI de INT 40h
+DESINSTALAR_57H PROC	; Desinstala RSI de INT 40h
 	push ax bx cx ds es
 
 	mov cx, 0
@@ -76,7 +111,7 @@ desinstalar_57h PROC	; Desinstala RSI de INT 40h
 
 	pop es ds cx bx ax
 	ret
-desinstalar_57h 
+DESINSTALAR_57H 
 ENDP
 
 codigo ENDS
