@@ -1,5 +1,6 @@
 package es.uam.eps.ads.p5;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,21 +19,22 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
 
 
     /**
-     * Constructor de la clase Matrix que nos crea una matriz vacÃ­a
-     * @param numColumnas = numero de columnas de la matriz
+     * Constructor de la clase Matrix que nos crea una matriz vacia
      * @param numFilas = numero de filas de la matriz
+     * @param numColumnas = numero de columnas de la matriz
      */
-    public Matrix(int numColumnas, int numFilas) {
+    public Matrix(int numFilas, int numColumnas) {
         this.numColumnas = numColumnas;
         this.numFilas = numFilas;
     }
 
     /**
      * Constructor de la clase Matrix que nos crea una matriz con elementos
-     * @param numColumnas = numero de columnas de la matriz
      * @param numFilas = numero de filas de la matriz
+     * @param numColumnas = numero de columnas de la matriz
+     * @param IMatrixElement ... = elementos que se van añadiendo en orden a la matriz
      */
-    public Matrix(int numColumnas, int numFilas, IMatrixElement ... elementos) {
+    public Matrix(int numFilas, int numColumnas, IMatrixElement ... elementos) {
         this(numColumnas, numFilas);
         for(IMatrixElement e: elementos) {
             try {
@@ -59,7 +61,7 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
     }
 
     public void addElement(IMatrixElement<T> element) throws IllegalPositionException {
-        if(isLegalPosition(element.getI(), element.getJ())) {
+        if(!isLegalPosition(element.getI(), element.getJ())) {
             throw new IllegalPositionException(element.getI(), element.getJ());
         }
 
@@ -73,7 +75,7 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
     }
 
     public IMatrixElement<T> getElementAt(int i, int j) throws IllegalPositionException {
-        if(isLegalPosition(i, j)) {
+        if(!isLegalPosition(i, j)) {
             throw new IllegalPositionException(i, j);
         }
 
@@ -156,10 +158,12 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
     }
 
     public int compare(Matrix<T> matrix1, Matrix<T> matrix2) {
+		return 0;
 
     }
 
     public List<IMatrixElement<T>> asListSortedBy(Comparator<IMatrixElement<T>> c) {
+		return Collections.emptyList();
     }
 
 }
