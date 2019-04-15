@@ -232,7 +232,7 @@ SIN_PARAMETROS:
 	MOV BX, ES:[ 57h*4+2 ]
 	ADD AX, BX	;COMPROBAMOS SI EL VECTOR DE INTERRUPCION ESTÁ INICIALIZADO
 
-	JE INSTALLED
+	JNE INSTALLED
 
 	MOV AH,9
 	MOV DX, OFFSET DESINSTALADO
@@ -318,7 +318,7 @@ DESINSTALAR_57H:	; Desinstala RSI de INT 40h
 	mov es, bx
 	int 21h	;  Libera segmento de variables de entorno de RSI
 
-	;  Pone a cero vector de interrupción 40h
+	;  Pone a cero vector de interrupción 57h
 	cli
 	mov ds:[ 57h*4 ], cx;  cx = 0
 	mov ds:[ 57h*4+2 ], cx
