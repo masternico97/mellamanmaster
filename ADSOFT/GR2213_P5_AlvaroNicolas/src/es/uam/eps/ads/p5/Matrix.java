@@ -1,5 +1,6 @@
 package es.uam.eps.ads.p5;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public class Matrix {
+public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<Matrix<T>> {
 
     private List<IMatrixElement<T>> matrix = new LinkedList<>();
     private int numColumnas;
@@ -50,7 +51,7 @@ public class Matrix {
         return numFilas;
     }
 
-    private boolean isLegalPosition(int i, int j) {
+    public boolean isLegalPosition(int i, int j) {
         if(i >= getRows() || j >= getCols()) {
             return false;
         }
@@ -83,6 +84,7 @@ public class Matrix {
         }
         return null;
     }
+
     public List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException {
         List<IMatrixElement<T>> listaVecinos = new LinkedList<>();
         IMatrixElement<T> elementoAux;
@@ -121,4 +123,43 @@ public class Matrix {
     public List<IMatrixElement<T>> asList() {
         return matrix;
     }
+
+    @Override
+    public int compareTo(Matrix<T> compMatrix) {
+        if(getRows() == compMatrix.getRows() && getCols() == compMatrix.getCols()) {
+            int ret = 0;
+            for(int i = 0; i < getRows(); i++) {
+                for(int j = 0; j < getCols(); j++) {
+                    try {
+                        if(!getElementAt(i, j).equals(compMatrix.getElementAt(i, j))) {
+                           ret++;
+                        }
+                    }
+                    catch (IllegalPositionException e) {
+                        System.out.println(e);
+                        ret++;
+                    }
+                }
+            }
+            return ret;
+        }
+        else {
+            return 1;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==this) return true;
+        if (!(obj instanceof Matrix)) return false;
+        return (this.compareTo((Matrix) obj) == 0);
+    }
+
+    public int compare(Matrix<T> matrix1, Matrix<T> matrix2) {
+
+    }
+
+    public List<IMatrixElement<T>> asListSortedBy(Comparator<IMatrixElement<T>> c) {
+    }
+
 }

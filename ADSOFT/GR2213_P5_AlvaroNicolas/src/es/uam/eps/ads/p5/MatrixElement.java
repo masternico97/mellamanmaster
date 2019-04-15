@@ -6,7 +6,7 @@ package es.uam.eps.ads.p5;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public class MatrixElement<T> {
+public class MatrixElement<T> implements IMatrixElement<T> {
     private int fila;
     private int columna;
     private T elemento;
@@ -30,7 +30,7 @@ public class MatrixElement<T> {
     }
 
     public void setElement(T element){
-        elemento = T;
+        elemento = element;
     }
 
     @Override

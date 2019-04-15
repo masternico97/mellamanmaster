@@ -1,5 +1,6 @@
 package es.uam.eps.ads.p5;
 
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public interface IMatrix<T>  {
+public interface IMatrix<T> {
     int getCols();
     int getRows();
     boolean isLegalPosition(int i, int j);
@@ -16,4 +17,5 @@ public interface IMatrix<T>  {
     IMatrixElement<T> getElementAt(int i, int j) throws IllegalPositionException;
     List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException;
     List<IMatrixElement<T>> asList();
+    List<IMatrixElement<T>> asListSortedBy(Comparator<IMatrixElement<T>> c);
 }
