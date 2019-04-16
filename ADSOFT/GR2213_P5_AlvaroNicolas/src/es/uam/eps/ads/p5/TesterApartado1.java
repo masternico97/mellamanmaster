@@ -2,8 +2,6 @@ package es.uam.eps.ads.p5;
 
 import static org.junit.Assert.*;
 
-import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,13 +58,19 @@ public class TesterApartado1 {
 	 * @throws IllegalPositionException 
 	 */
 	@Test
-	public void testAddElement() throws IllegalPositionException {
-		IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester");
-		IMatrixElement<String> elemento2;
-		stringMatrix.addElement(elemento1);
-		elemento2 = stringMatrix.getElementAt(0, 0);
-		assertSame(elemento1, elemento2);
-		
+	public void testAddElement() {
+		try {
+			IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester");
+			
+			stringMatrix.addElement(elemento1);
+		} catch(IllegalPositionException e) {
+			fail("IllegalPositionException");
+		} try {
+			IMatrixElement<Integer> elemento3 = new MatrixElement<>(10, 10, 12);
+			intMatrix.addElement(elemento3);
+			fail("Se debería haber producido IllegalPositionException");
+		} catch(IllegalPositionException e) {	
+		}		
 	}
 	
 	/**
@@ -74,29 +78,69 @@ public class TesterApartado1 {
 	 */
 	@Test
 	public void testGetElementAt() {
-	
+		try {
+			IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester");
+			
+			stringMatrix.addElement(elemento1);
+			assertSame(elemento1, stringMatrix.getElementAt(0, 0));
+		} catch(IllegalPositionException e) {
+			fail("IllegalPositionException");
+		} try {
+			IMatrixElement<Integer> elemento3;
+			assertNull(intMatrix.getElementAt(0, 0));
+			elemento3 = intMatrix.getElementAt(6, 7);
+			fail("Se debería haber producido IllegalPositionException");
+		} catch(IllegalPositionException e) {	
+		}			
 	}
 	
 	/**
 	 * Test getNeighboursAt.
+	 * @throws IllegalPositionException 
 	 */
 	@Test
-	public void testGetNeighboursAt() {
-	
+	public void testGetNeighboursAt() throws IllegalPositionException {
+		stringMatrix.addElement(new MatrixElement<>(1, 2, "N"));
+		stringMatrix.addElement(new MatrixElement<>(3, 2, "S"));
+		stringMatrix.addElement(new MatrixElement<>(2, 3, "E"));
+		stringMatrix.addElement(new MatrixElement<>(2, 1, "W"));
+		
+		assertFalse(stringMatrix.getNeighboursAt(2, 2).isEmpty());
+		assertTrue(intMatrix.getNeighboursAt(2, 2).isEmpty());
+
 	}
 	
 	/**
 	 * Test asList.
+	 * @throws IllegalPositionException 
 	 */
 	@Test
-	public void testAsList() {
-	
+	public void testAsList() throws IllegalPositionException {
+		stringMatrix.addElement(new MatrixElement<>(0, 0, "Test"));
+		
+		assertFalse(stringMatrix.asList().isEmpty());
+		assertTrue(intMatrix.asList().isEmpty());
 	}
 	
+	/**
+	 * Test getElementAt.
+	 * @throws IllegalPositionException 
+	 */
+	@Test
+	public void testToString() throws IllegalPositionException {
+		stringMatrix.addElement(new MatrixElement<>(1, 2, "N"));
+		stringMatrix.addElement(new MatrixElement<>(3, 2, "S"));
+		stringMatrix.addElement(new MatrixElement<>(2, 3, "E"));
+		stringMatrix.addElement(new MatrixElement<>(2, 1, "W"));
+		
+		for(int i = 0; i < intMatrix.getRows(); i+=2) {
+			for (int j = 0; j < intMatrix.getCols(); j+=3 ) {
+				intMatrix.addElement(new MatrixElement<>(i, j, (i*intMatrix.getCols()+j)));
+			}
+		}
+		
+		System.out.println(stringMatrix);
+		System.out.println(intMatrix);	
+	}
 	
-    
-    //void addElement(IMatrixElement<T> element) throws IllegalPositionException;
-    //IMatrixElement<T> getElementAt(int i, int j) throws IllegalPositionException;
-    //List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException;
-    //List<IMatrixElement<T>> asList();
 }

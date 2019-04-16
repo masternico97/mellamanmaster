@@ -91,7 +91,7 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
         List<IMatrixElement<T>> listaVecinos = new LinkedList<>();
         IMatrixElement<T> elementoAux;
 
-        if(isLegalPosition(i, j)) {
+        if(!isLegalPosition(i, j)) {
             throw new IllegalPositionException(i, j);
         }
 
@@ -126,6 +126,27 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
         return matrix;
     }
 
+    @Override
+    public String toString(){
+    	try {
+	    	String salida = "";
+	    	for(int i = 0; i < numFilas; i++) {
+	    		for(int j = 0; j < numColumnas; j++) {
+	    			IMatrixElement<T> currentElement = getElementAt(i, j);
+	    			if(currentElement == null) {
+	    				salida = salida.concat("0\t");	//Si la casilla esta vacia se imprime un 0
+	    			} else {
+	    				salida = salida.concat(currentElement.toString()+"\t");
+	    			}
+	    		}
+	    		salida = salida.concat("\n");
+	    	}
+	        return salida;
+    	} catch (IllegalPositionException e) {
+    		return null;
+    	}
+    }
+    
     @Override
     public int compareTo(Matrix<T> compMatrix) {
         if(getRows() == compMatrix.getRows() && getCols() == compMatrix.getCols()) {
