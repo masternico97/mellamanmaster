@@ -11,7 +11,7 @@ import java.util.List;
  * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
  * Grupo de practicas: 2213
  */
-public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<Matrix<T>> {
+public class Matrix<T> implements IMatrix<T> {
 
     private List<IMatrixElement<T>> matrix = new LinkedList<>();
     private int numColumnas;
@@ -32,7 +32,7 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
      * Constructor de la clase Matrix que nos crea una matriz con elementos
      * @param numFilas = numero de filas de la matriz
      * @param numColumnas = numero de columnas de la matriz
-     * @param IMatrixElement ... = elementos que se van añadiendo en orden a la matriz
+     * @param elementos ... = elementos que se van aÃ±adiendo en orden a la matriz
      */
     public Matrix(int numFilas, int numColumnas, IMatrixElement ... elementos) {
         this(numColumnas, numFilas);
@@ -66,7 +66,7 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
         }
 
         for(IMatrixElement e : matrix) {
-            if(e.equals(element)) {
+            if(e.getI() == element.getI() && e.getJ() == element.getJ()) {
                 e.setElement(element);
                 return;
             }
@@ -128,63 +128,67 @@ public class Matrix<T> implements IMatrix<T>, Comparable<Matrix<T>>, Comparator<
 
     @Override
     public String toString(){
-    	try {
-	    	String salida = "";
-	    	for(int i = 0; i < numFilas; i++) {
-	    		for(int j = 0; j < numColumnas; j++) {
-	    			IMatrixElement<T> currentElement = getElementAt(i, j);
-	    			if(currentElement == null) {
-	    				salida = salida.concat("0\t");	//Si la casilla esta vacia se imprime un 0
-	    			} else {
-	    				salida = salida.concat(currentElement.toString()+"\t");
-	    			}
-	    		}
-	    		salida = salida.concat("\n");
-	    	}
-	        return salida;
-    	} catch (IllegalPositionException e) {
-    		return null;
-    	}
-    }
-    
-    @Override
-    public int compareTo(Matrix<T> compMatrix) {
-        if(getRows() == compMatrix.getRows() && getCols() == compMatrix.getCols()) {
-            int ret = 0;
-            for(int i = 0; i < getRows(); i++) {
-                for(int j = 0; j < getCols(); j++) {
-                    try {
-                        if(!getElementAt(i, j).equals(compMatrix.getElementAt(i, j))) {
-                           ret++;
-                        }
-                    }
-                    catch (IllegalPositionException e) {
-                        System.out.println(e);
-                        ret++;
+        try {
+            String salida = "";
+            for(int i = 0; i < numFilas; i++) {
+                for(int j = 0; j < numColumnas; j++) {
+                    salida = salida.concat("\t");	//Insertamos una tabulacion
+                    IMatrixElement<T> currentElement = getElementAt(i, j);
+                    if(currentElement == null) {
+                        salida = salida.concat("0|");	//Si la casilla esta vacia se imprime un 0
+                    } else {
+                        salida = salida.concat(currentElement.toString()+"|");
                     }
                 }
+                salida = salida.concat("\n");
             }
-            return ret;
-        }
-        else {
-            return 1;
+            return salida;
+        } catch (IllegalPositionException e) {
+            return null;
         }
     }
+
 
     @Override
     public boolean equals(Object obj) {
         if (obj==this) return true;
         if (!(obj instanceof Matrix)) return false;
-        return (this.compareTo((Matrix) obj) == 0);
+
+        Matrix<T> comparing = (Matrix<T>)obj;
+
+        if(getRows() == comparing.getRows() && getCols() == comparing.getCols()) {
+            int ret = 0;
+            for(int i = 0; i < getRows(); i++) {
+                for(int j = 0; j < getCols(); j++) {
+                    try {
+                        if(!getElementAt(i, j).equals(comparing.getElementAt(i, j))) {
+                            return false;
+                        }
+                    }
+                    catch (IllegalPositionException e) {
+                        System.out.println(e);
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
-    public int compare(Matrix<T> matrix1, Matrix<T> matrix2) {
-		return 0;
-
+    @Override
+    public int hashCode() {
+        int hashValue = 11;
+        hashValue = 31*hashValue+getRows();
+        hashValue = 31*hashValue+getCols();
+        hashValue = 31*hashValue+matrix.hashCode();
+        return hashValue;
     }
 
     public List<IMatrixElement<T>> asListSortedBy(Comparator<IMatrixElement<T>> c) {
-		return Collections.emptyList();
+        Collections.sort(matrix, c);
+        return matrix;
     }
-
 }
