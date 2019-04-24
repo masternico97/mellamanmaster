@@ -307,7 +307,7 @@ INSTALAR:
 	int 27h ;  Acaba y deja residente
 			;  PSP, variables y rutina rsi.
 
-DESINSTALAR_57H:	; Desinstala RSI de INT 40h
+DESINSTALAR_57H:	; Desinstala RSI de INT 57h
 	push ax bx cx ds es
 
 	MOV AH,9
