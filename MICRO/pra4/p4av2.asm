@@ -16,8 +16,8 @@ inicio: jmp instalador
 	INSTALADO 	  DB 1BH,"[10;1fEl driver esta instalado $"
 	DESINSTALADO  DB 1BH,"[10;1fEl driver no esta instalado $"
 	GRUPO		  DB 1BH,"[11;1fPareja numero  10$ "
-	NOMBRES		  DB 1BH,"[12;1fRealizado por Alvaro Sanchez y Nicolas Serrano $ "
-	USO			  DB 1BH,"[13;1fEjecute el programa con /I para instalar y con /D para desisntalar $ "
+	NOMBRES		  DB 1BH,"[12;1fRealizado por Alvaro Sanchez y Nicolas Serrano $"
+	USO			  DB 1BH,"[13;1fEjecute el programa con /I para instalar y con /D para desisntalar $"
 	INSTALANDO 	  DB 1BH,"[10;1fEl driver se esta instalando $"
 	DESINSTALANDO DB 1BH,"[10;1fEl driver se esta desinstalando $"
 	VECTOR_INT DD 0
@@ -27,7 +27,7 @@ inicio: jmp instalador
 rsi PROC FAR
 	PUSH AX BX DX SI
 
-	CALL INSTALADOR_1CH
+	;CALL INSTALADOR_1CH
 
 	CMP AH, 10H
 	JZ OPCION_10H
@@ -42,7 +42,7 @@ OPCION_11H:
 	CALL DECODIFICADOR
 
 FIN:
-	CALL DESINSTALADOR_1CH
+	;CALL DESINSTALADOR_1CH
 	POP SI DX BX AX
 	iret
 rsi ENDP
@@ -79,12 +79,12 @@ INSTALADOR_1CH PROC NEAR
 	mov ax, OFFSET CONTADOR
 	mov bx, cs
 
-	pop ax
+	push ax
 	in al, 21h ;Guardamos el estado inicial
 	mov dl, al
-	mov al, 1
-	out 21h, al ;Desactivamos las interrupciones poniendo el bit a 1 de PIC-1
-	push ax
+	or al, 00000001b
+	out 21h, al ;Desactivamos las interrupciones poniendo el bit a 1 de PIC-0
+	pop ax
 
 	mov es:[ 1Ch*4 ], ax
 	mov es:[ 1Ch*4+2 ], bx
@@ -115,8 +115,8 @@ DESINSTALADOR_1CH PROC NEAR
 	;  Pone a su valor original el vector de interrupción 1Ch
 	in al, 21h ;Guardamos el estado inicial
 	push ax
-	mov al, 1
-	out 21h, al ;Desactivamos las interrupciones poniendo el bit a 1 de PIC-1
+	or al, 00000001b
+	out 21h, al ;Desactivamos las interrupciones poniendo el bit a 1 de PIC-0
 
 	mov ax, WORD PTR VECTOR_INT[0]
 	mov bx, WORD PTR VECTOR_INT[2]
@@ -158,10 +158,10 @@ BUCLE:
 	CMP AL, 48 ;SI ES CERO IMPRIME 66
 	JNE NUM_Y_LET
 	MOV AH, 2H
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	MOV DL, 54 ;IMPRIME UN 6
 	INT 21H
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	MOV DL, 54 ;IMPRIME UN 6
 	INT 21H
 
@@ -172,7 +172,7 @@ INCREMENTO: ;INCREMENTA EL INDICE DE LECTURA Y REGRESA AL BUCLE PRINCIPAL
 ESPACIO:
 	MOV AH,2H	; IMPRIMIMOS UNO DE LOS NUMEROS DE LA PARTE SUPERIOR
 	MOV DL, 32 ;IMPRIME UN ESPACIO
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
 	JMP INCREMENTO
 
@@ -200,10 +200,10 @@ IMP_NUM_CONT:
 	ADD AH, 48
 	MOV CL, AH
 	MOV AH,2H
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	MOV DL, AL ;IMPRIME LA FILA
 	INT 21H
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	MOV DL, CL ;IMPRIME LA COLUMNA
 	INT 21H
 	JMP INCREMENTO
@@ -224,10 +224,10 @@ IMP_LET_CONT:
 	MOV CL, AH
 	MOV AH,2H
 	MOV DL, AL ;IMPRIME LA FILA
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
 	MOV DL, CL ;IMPRIME LA COLUMNA
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
 	JMP INCREMENTO
 
@@ -256,7 +256,7 @@ BUCLE_D:
 	INC SI
   MOV AH,2H	; IMPRIMIMOS UNO DE LOS NUMEROS DE LA PARTE SUPERIOR
   MOV DL, 32 ;IMPRIME UN ESPACIO
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
   INT 21H
 	JMP BUCLE_D
 
@@ -277,7 +277,7 @@ VALIDO: ;COMPRUEBA QUE SE NOS HA DADO UNA FILA Y COLUMNA VALIDA
 	JNE COMPRUEBA
   MOV AH,2H
 	MOV DL, 48 ;IMPRIME UN CERO
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
   JMP INCREMENTO_D
 
@@ -306,7 +306,7 @@ IMP_NUM_D:
 	ADD AL, 48
 	MOV AH,2H
 	MOV DL, AL ;IMPRIME EL NUMERO
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
 	JMP INCREMENTO_D
 
@@ -321,7 +321,7 @@ IMP_LET_D:
 	ADD AL, 55
 	MOV AH,2H
 	MOV DL, AL ;IMPRIME LA LETRA
-	CALL BUCLE_CONTADOR
+	;CALL BUCLE_CONTADOR
 	INT 21H
 
 INCREMENTO_D:
@@ -334,7 +334,7 @@ CONTADOR_BUCLE PROC NEAR
 
 BUCLE_CONTADOR: ;COMPRUEBA EL CONTADOR Y NO CONTINUA HASTA QUE SEA 18, IMPRIMIENDO UN CARACTER PR SEGUNDO
 	CMP CONTADOR_1CH, 18
-	JB BUCLE_CONTADOR
+	JNE BUCLE_CONTADOR
 	RET
 
 CONTADOR_BUCLE ENDP
@@ -432,6 +432,8 @@ INSTALAR:
 	sti
 	mov dx, OFFSET INSTALADOR
 
+	CALL INSTALADOR_1CH
+
 	int 27h ;  Acaba y deja residente
 			;  PSP, variables y rutina rsi.
 
@@ -457,6 +459,8 @@ DESINSTALAR_57H:	; Desinstala RSI de INT 57h
 	mov ds:[ 57h*4 ], cx;  cx = 0
 	mov ds:[ 57h*4+2 ], cx
 	sti
+
+	CALL DESINSTALADOR_1CH
 
 	pop es ds cx bx ax
 

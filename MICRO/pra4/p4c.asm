@@ -19,7 +19,7 @@ DATOS SEGMENT
   LAST_NUM DB 58 ;NUMERO 9+1(ASCII)
   INSTRUCCION DB 1BH,"[8;1 Introduzca decod para decodificar, cod para codificar o quit para salir: $"
   ERROR DB 1BH,"[6;1 Error al introducir la cadena por parametro: $"
-  CADENA DB 6 dup(?)
+  CADENA DB 100 dup(?)
 
 DATOS ENDS
 
