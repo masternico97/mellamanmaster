@@ -37,4 +37,8 @@ public class Cell {
         }
         return null;
     }
+
+    public LinkedList<IBasicAgent> getAgentes() {
+        return agentes;
+    }
 }

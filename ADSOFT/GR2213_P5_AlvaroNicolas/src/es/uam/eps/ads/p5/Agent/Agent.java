@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public class Agent extends BasicAgent implements IAgent, Cloneable {
 
-    LinkedList<Function<IAgent, Boolean>> comportamientos;
+    LinkedList<Comportamiento> comportamientos;
 
     public Agent(String tipo) {
         super(tipo);
@@ -15,11 +15,28 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
 
     @Override
     public void moveTo(Cell destination) {
-
+        this.cell.getAgentes().remove(cell);
+        this.setCell(destination);
+        destination.add(this);
     }
-    void exec(); // Ejecutar comportamiento del agente
-    IAgent addBehaviour(Predicate<IAgent> trigger, Function<IAgent, Boolean> behaviour);
-    IAgent addBehaviour(Function<IAgent, Boolean> behaviour);
+
+    // Ejecutar comportamiento del agente
+    public void exec(){
+        for(Comportamiento c : comportamientos) {
+            if(c.getTrigger().test(this)) {
+                c.getBehaviour().apply(this);
+            }
+        }
+    }
+    public IAgent addBehaviour(Predicate<IAgent> trigger, Function<IAgent, Boolean> behaviour) {
+        comportamientos.add(new Comportamiento(behaviour, trigger));
+        return this;
+    }
+
+    public IAgent addBehaviour(Function<IAgent, Boolean> behaviour) {
+        comportamientos.add(new Comportamiento(behaviour));
+        return this;
+    }
 
     @Override
     public IAgent copy() {
