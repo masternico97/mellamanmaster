@@ -11,6 +11,12 @@ public class MatrixElement<T> implements IMatrixElement<T>, Comparable<IMatrixEl
     private int columna;
     private T elemento;
 
+    /**
+     * Constructor del elemento de la matriz generico de la practica
+     * @param fila = fila del elemento
+     * @param columna = columna del elemento
+     * @param elemento = elemento generico
+     */
     public MatrixElement(int fila, int columna, T elemento){
         this.fila = fila;
         this.columna = columna;

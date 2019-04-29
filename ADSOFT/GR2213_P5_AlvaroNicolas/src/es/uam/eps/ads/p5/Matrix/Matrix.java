@@ -53,6 +53,12 @@ public class Matrix<T> implements IMatrix<T> {
         return numFilas;
     }
 
+    /**
+     * Metodo que comprueba si la posicion es legal
+     * @param i = fila i
+     * @param j = columna j
+     * @return boolean = true, si es una posicion legal y false, si no lo es
+     */
     public boolean isLegalPosition(int i, int j) {
         if(i >= getRows() || j >= getCols()) {
             return false;
@@ -60,6 +66,11 @@ public class Matrix<T> implements IMatrix<T> {
         return true;
     }
 
+    /**
+     * Metodo para anyadir un elemento a la matriz, reemplazando el que este en esa
+     * posicion si existe
+     * @param element = elemento a anyadir
+     */
     public void addElement(IMatrixElement<T> element) throws IllegalPositionException {
         if(!isLegalPosition(element.getI(), element.getJ())) {
             throw new IllegalPositionException(element.getI(), element.getJ());
@@ -74,6 +85,12 @@ public class Matrix<T> implements IMatrix<T> {
         matrix.add(element);
     }
 
+    /**
+     * Metodo para conseguir un elemento de la matriz
+     * @param i = fila i
+     * @param j = columna j
+     * @return IMatrixElement<T>  = elemento de esa posicion, null si no existe
+     */
     public IMatrixElement<T> getElementAt(int i, int j) throws IllegalPositionException {
         if(!isLegalPosition(i, j)) {
             throw new IllegalPositionException(i, j);
@@ -87,6 +104,12 @@ public class Matrix<T> implements IMatrix<T> {
         return null;
     }
 
+    /**
+     * Metodo para obtener los vecinos del elemento en la posicion(i,j)
+     * @param i = fila i
+     * @param j = columna j
+     * @return List<IMatrixElement<T>> = lista de elementos vecinos del elemento de la posicion(i,j)
+     */
     public List<IMatrixElement<T>> getNeighboursAt(int i, int j) throws IllegalPositionException {
         List<IMatrixElement<T>> listaVecinos = new LinkedList<>();
         IMatrixElement<T> elementoAux;
@@ -122,6 +145,11 @@ public class Matrix<T> implements IMatrix<T> {
         return listaVecinos;
 
     }
+
+    /**
+     * Metodo que devuelve nuestra matriz como lista (en nuestro caso ya lo era originalmente)
+     * @return List<IMatrixElement<T>> = devuelve lista
+     */
     public List<IMatrixElement<T>> asList() {
         return matrix;
     }
@@ -187,8 +215,13 @@ public class Matrix<T> implements IMatrix<T> {
         return hashValue;
     }
 
+    /**
+     * Metodo para ordenar la list de la matriz con un comparator
+     * @param c = comparator que usamos como criterio para ordenar la lista
+     * @return List<IMatrixElement<T>> = devolvemos una lista inmutable ordenada
+     */
     public List<IMatrixElement<T>> asListSortedBy(Comparator<IMatrixElement<T>> c) {
         Collections.sort(matrix, c);
-        return matrix;
+        return Collections.unmodifiableList(matrix);
     }
 }
