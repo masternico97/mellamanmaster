@@ -50,13 +50,13 @@ rsi ENDP
 
 CONTADOR PROC NEAR
 
-	PUSH AX DX BX
+	PUSH AX
 
 	MOV AL, CONTADOR_1CH
 	INC AL
 	MOV CONTADOR_1CH, AL
 
-	POP BX DX AX
+	POP AX
 	IRET
 
 CONTADOR ENDP
@@ -93,23 +93,13 @@ INSTALADOR_1CH PROC NEAR
 	mov dx, OFFSET INSTALADOR_1CH
 
 	POP ES DX CX BX AX
-	RET ;Al no querer acabar el programa no acabamos su ejecucion con int
+	RET ;Al no querer acabar el programa, no acabamos su ejecucion con int 27h
 
 INSTALADOR_1CH ENDP
 
 DESINSTALADOR_1CH PROC NEAR
 
 	push ax bx cx ds es
-
-	mov cx, 0
-	mov ds, cx	;  Segmento de vectores interrupción
-	mov es, ds:[ 1Ch*4+2 ]      ;  Lee segmento de RSI
-	mov bx, es:[ 2Ch ]  ;  Lee segmento de entorno del PSP de RSI
-
-	mov ah, 49h
-	int 21h	;  Libera segmento de RSI (es)
-	mov es, bx
-	int 21h	;  Libera segmento de variables de entorno de RSI
 
 	;  Pone a su valor original el vector de interrupción 1Ch
 	in al, 21h ;Guardamos el estado inicial
@@ -140,6 +130,7 @@ CODIFICADOR PROC NEAR
   MOV DL, 10 ;ESCRIBE UN SALTO DE LINEA
   INT 21H
 
+	XOR DX, DX
   XOR SI,SI
   XOR CX, CX
 BUCLE:
@@ -237,6 +228,7 @@ DECODIFICADOR PROC NEAR
 	INT 21H
 	XOR SI,SI
 	XOR CX, CX
+	XOR DX, DX
 
 BUCLE_D:
 	CALL CONTADOR_BUCLE
@@ -250,7 +242,7 @@ BUCLE_D:
 	INC SI
 	MOV AH,2H	; IMPRIMIMOS UNO DE LOS NUMEROS DE LA PARTE SUPERIOR
 	MOV DL, 32 ;IMPRIME UN ESPACIO
-	
+
   INT 21H
 	JMP BUCLE_D
 
@@ -428,8 +420,6 @@ INSTALAR:
 	sti
 	mov dx, OFFSET INSTALADOR
 
-	;CALL INSTALADOR_1CH
-
 	int 27h ;  Acaba y deja residente
 			;  PSP, variables y rutina rsi.
 
@@ -455,8 +445,6 @@ DESINSTALAR_57H:	; Desinstala RSI de INT 57h
 	mov ds:[ 57h*4 ], cx;  cx = 0
 	mov ds:[ 57h*4+2 ], cx
 	sti
-
-	;CALL DESINSTALADOR_1CH
 
 	pop es ds cx bx ax
 
