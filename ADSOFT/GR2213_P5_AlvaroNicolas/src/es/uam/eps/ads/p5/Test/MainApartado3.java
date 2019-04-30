@@ -13,6 +13,5 @@ public class MainApartado3 {
     	s.create(random, 10, 5, 5);
         s.create(outer, 10, 7, 7);
         s.run(2);
-
     }
 }

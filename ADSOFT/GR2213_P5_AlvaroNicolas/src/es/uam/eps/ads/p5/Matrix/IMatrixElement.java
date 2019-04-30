@@ -13,5 +13,6 @@ public interface IMatrixElement<T> {
     void setElement(T element);
     String toString();
     boolean equals(Object obj);
-    public int compareTo(IMatrixElement<T> e);
+    int compareTo(IMatrixElement<T> e);
+    IMatrix getMatrix();
 }

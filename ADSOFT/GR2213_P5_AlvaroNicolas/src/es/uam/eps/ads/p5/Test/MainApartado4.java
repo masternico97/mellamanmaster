@@ -2,7 +2,7 @@ package es.uam.eps.ads.p5.Test;
 
 import es.uam.eps.ads.p5.Agent.Agent;
 import es.uam.eps.ads.p5.Agent.Cell;
-import es.uam.eps.ads.p5.Agent.Simulator;
+import es.uam.eps.ads.p5.Simulator.Simulator;
 
 import java.util.List;
 import java.util.Random;

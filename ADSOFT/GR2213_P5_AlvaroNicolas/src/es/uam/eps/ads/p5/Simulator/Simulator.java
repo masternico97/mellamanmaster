@@ -1,5 +1,6 @@
 package es.uam.eps.ads.p5.Simulator;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,21 +11,23 @@ import es.uam.eps.ads.p5.Matrix.IllegalPositionException;
 import es.uam.eps.ads.p5.Matrix.MatrixElement;
 
 public class Simulator extends GeneralSimulator{
-	 private List<IAgent> agentes;
+	private List<IAgent> agentes;
 	
 	public Simulator(int numFilas, int numColumnas) {
 		super(numFilas, numColumnas);
+		agentes = new LinkedList<>();
 	}
 	
     public void create(IAgent agent, int numAgentes, int fila, int columna) {
         IAgent aux;
         Cell cell = new Cell();
         for(int i = 0; i < numAgentes; i++) {
-            aux = agent.copy();
-            cell.add(aux);
-            agentes.add(aux);
+			aux = agent.copy();
+			cell.add(aux);
+			agentes.add(aux);
         }
-        IMatrixElement<Cell> element = new MatrixElement<>(fila, columna, cell);
+        IMatrixElement<Cell> element = new MatrixElement<>(fila, columna, cell, entorno);
+        cell.iniElement(element);
         try {
             entorno.addElement(element);
         }

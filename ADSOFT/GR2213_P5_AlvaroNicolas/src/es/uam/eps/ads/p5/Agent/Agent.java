@@ -15,7 +15,7 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
 
     @Override
     public void moveTo(Cell destination) {
-        this.cell.getAgentes().remove(cell);
+        this.cell.agents().remove(cell);
         this.setCell(destination);
         destination.add(this);
     }
@@ -40,12 +40,14 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
 
     @Override
     public IAgent copy() {
-        Agent agent = null;
-        agent.tipo = this.tipo; /*Consideramos que al ser inmutable el String, seria indiferente
-                                  agent.tipo = new String(this.tipo), que seria redundante*/
-        agent.cell = this.cell.copy();
-        agent.comportamientos = this.comportamientos;
-
-        return agent;
+        try {
+            Agent agent = (Agent)this.clone();
+            agent.comportamientos = this.comportamientos;
+            return agent;
+        }
+        catch(CloneNotSupportedException e) {
+            System.out.println("No se puede duplicar.");
+        }
+        return null;
     }
 }

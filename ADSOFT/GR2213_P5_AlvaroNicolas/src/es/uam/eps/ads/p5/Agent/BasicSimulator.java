@@ -1,13 +1,13 @@
-package es.uam.eps.ads.p5.Simulator;
+package es.uam.eps.ads.p5.Agent;
 
-import es.uam.eps.ads.p5.Agent.Cell;
-import es.uam.eps.ads.p5.Agent.IBasicAgent;
 import es.uam.eps.ads.p5.Matrix.*;
 
-public class BasicSimulator extends GeneralSimulator {
+public class BasicSimulator {
+
+    private IMatrix entorno;
 
     public BasicSimulator(int numFilas, int numColumnas) {
-        super(numFilas, numColumnas);
+        entorno = new Matrix(numFilas, numColumnas);
     }
 
     public void create(IBasicAgent agent, int numAgentes, int fila, int columna) {
@@ -24,14 +24,15 @@ public class BasicSimulator extends GeneralSimulator {
         catch(IllegalPositionException e) {
             e.printStackTrace();
         }
-    }	
-
-    public void run(int pasos) {
-    	for(int i = 0; i < pasos; i++) {
-    		tiempo = i;
-    		System.out.println(this);
-    	}
-    		
     }
 
+    public void run(int pasos) {
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "++++++++++++++++++++++++++++++++++++++++++++++\n" +
+               "Time = 0\n"+entorno.toString();
+    }
 }

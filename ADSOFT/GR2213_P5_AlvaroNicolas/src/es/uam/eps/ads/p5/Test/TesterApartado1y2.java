@@ -64,13 +64,13 @@ public class TesterApartado1y2 {
     @Test
     public void testAddElement() {
         try {
-            IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester");
+            IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester", stringMatrix);
 
             stringMatrix.addElement(elemento1);
         } catch(IllegalPositionException e) {
             fail("IllegalPositionException");
         } try {
-            IMatrixElement<Integer> elemento3 = new MatrixElement<>(10, 10, 12);
+            IMatrixElement<Integer> elemento3 = new MatrixElement<>(10, 10, 12, intMatrix);
             intMatrix.addElement(elemento3);
             fail("Se debería haber producido IllegalPositionException");
         } catch(IllegalPositionException e) {
@@ -83,7 +83,7 @@ public class TesterApartado1y2 {
     @Test
     public void testGetElementAt() {
         try {
-            IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester");
+            IMatrixElement<String> elemento1 = new MatrixElement<>(0, 0, "Tester", stringMatrix);
 
             stringMatrix.addElement(elemento1);
             assertSame(elemento1, stringMatrix.getElementAt(0, 0));
@@ -104,10 +104,10 @@ public class TesterApartado1y2 {
      */
     @Test
     public void testGetNeighboursAt() throws IllegalPositionException {
-        stringMatrix.addElement(new MatrixElement<>(1, 2, "N"));
-        stringMatrix.addElement(new MatrixElement<>(3, 2, "S"));
-        stringMatrix.addElement(new MatrixElement<>(2, 3, "E"));
-        stringMatrix.addElement(new MatrixElement<>(2, 1, "W"));
+        stringMatrix.addElement(new MatrixElement<>(1, 2, "N", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(3, 2, "S", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 3, "E", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 1, "W", stringMatrix));
 
         assertFalse(stringMatrix.getNeighboursAt(2, 2).isEmpty());
         assertTrue(intMatrix.getNeighboursAt(2, 2).isEmpty());
@@ -120,7 +120,7 @@ public class TesterApartado1y2 {
      */
     @Test
     public void testAsList() throws IllegalPositionException {
-        stringMatrix.addElement(new MatrixElement<>(0, 0, "Test"));
+        stringMatrix.addElement(new MatrixElement<>(0, 0, "Test", stringMatrix));
 
         assertFalse(stringMatrix.asList().isEmpty());
         assertTrue(intMatrix.asList().isEmpty());
@@ -132,14 +132,14 @@ public class TesterApartado1y2 {
      */
     @Test
     public void testToString() throws IllegalPositionException {
-        stringMatrix.addElement(new MatrixElement<>(1, 2, "N"));
-        stringMatrix.addElement(new MatrixElement<>(3, 2, "S"));
-        stringMatrix.addElement(new MatrixElement<>(2, 3, "E"));
-        stringMatrix.addElement(new MatrixElement<>(2, 1, "W"));
+        stringMatrix.addElement(new MatrixElement<>(1, 2, "N", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(3, 2, "S", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 3, "E", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 1, "W", stringMatrix));
 
         for(int i = 0; i < intMatrix.getRows(); i+=2) {
             for (int j = 0; j < intMatrix.getCols(); j+=3 ) {
-                intMatrix.addElement(new MatrixElement<>(i, j, (i*intMatrix.getCols()+j)));
+                intMatrix.addElement(new MatrixElement<>(i, j, (i*intMatrix.getCols()+j), intMatrix));
             }
         }
 
@@ -155,15 +155,15 @@ public class TesterApartado1y2 {
     public void testAsListSortedBy() throws IllegalPositionException {
         List<IMatrixElement<String>> listAux = new LinkedList<>();
 
-        listAux.add(new MatrixElement<>(2, 1, "W"));
-        listAux.add(new MatrixElement<>(1, 2, "N"));
-        listAux.add(new MatrixElement<>(3, 2, "S"));
-        listAux.add(new MatrixElement<>(2, 3, "E"));
+        listAux.add(new MatrixElement<>(2, 1, "W", stringMatrix));
+        listAux.add(new MatrixElement<>(1, 2, "N", stringMatrix));
+        listAux.add(new MatrixElement<>(3, 2, "S", stringMatrix));
+        listAux.add(new MatrixElement<>(2, 3, "E", stringMatrix));
 
-        stringMatrix.addElement(new MatrixElement<>(1, 2, "N"));
-        stringMatrix.addElement(new MatrixElement<>(3, 2, "S"));
-        stringMatrix.addElement(new MatrixElement<>(2, 3, "E"));
-        stringMatrix.addElement(new MatrixElement<>(2, 1, "W"));
+        stringMatrix.addElement(new MatrixElement<>(1, 2, "N", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(3, 2, "S", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 3, "E", stringMatrix));
+        stringMatrix.addElement(new MatrixElement<>(2, 1, "W", stringMatrix));
 
 
         assertEquals(listAux, stringMatrix.asListSortedBy(new MatrixElementComparator()));
