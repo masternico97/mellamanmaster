@@ -15,8 +15,9 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
 
     @Override
     public void moveTo(Cell destination) {
-        this.cell.agents().remove(cell);
+        this.cell.agents().remove(this);
         this.setCell(destination);
+        destination.getMatrixElement();
         destination.add(this);
     }
 

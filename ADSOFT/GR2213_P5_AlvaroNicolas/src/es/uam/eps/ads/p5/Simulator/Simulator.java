@@ -21,6 +21,8 @@ public class Simulator extends GeneralSimulator{
     public void create(IAgent agent, int numAgentes, int fila, int columna) {
         IAgent aux;
         Cell cell = new Cell();
+        
+        agent.setCell(cell);
         for(int i = 0; i < numAgentes; i++) {
 			aux = agent.copy();
 			cell.add(aux);
@@ -47,9 +49,9 @@ public class Simulator extends GeneralSimulator{
 			}
 			
 			tiempo = i;
-
-			
-			while (contador < 20){
+			System.out.println(this);
+		
+			while (contador < agentes.size()){
 				int valor = rand.nextInt(agentes.size());
 			     if (!cogido[valor]){
 			           cogido[valor] = true;
@@ -57,8 +59,6 @@ public class Simulator extends GeneralSimulator{
 			           contador++;
 			      }
 			}
-			
-			System.out.println(this);
 		}
 	}
 

@@ -6,7 +6,6 @@ import es.uam.eps.ads.p5.Matrix.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,7 +71,7 @@ public class TesterApartado1y2 {
         } try {
             IMatrixElement<Integer> elemento3 = new MatrixElement<>(10, 10, 12, intMatrix);
             intMatrix.addElement(elemento3);
-            fail("Se debería haber producido IllegalPositionException");
+            fail("Se deberia haber producido IllegalPositionException");
         } catch(IllegalPositionException e) {
         }
     }
@@ -93,7 +92,7 @@ public class TesterApartado1y2 {
             IMatrixElement<Integer> elemento3;
             assertNull(intMatrix.getElementAt(0, 0));
             elemento3 = intMatrix.getElementAt(6, 7);
-            fail("Se debería haber producido IllegalPositionException");
+            fail("Se deberia haber producido IllegalPositionException");
         } catch(IllegalPositionException e) {
         }
     }

@@ -13,6 +13,7 @@ public class MainApartado4 {
         Simulator s = new Simulator(10,10);
         Agent random = new Agent("random");
         Agent outer = new Agent("outer");
+        
         random.addBehaviour( agent -> { // se ejecuta siempre, movemos el agente a una casilla aleatoria vecina
             List<Cell> neighbours = agent.cell().neighbours();
             Cell destination = neighbours.get(new Random().nextInt(neighbours.size()));
@@ -24,16 +25,17 @@ public class MainApartado4 {
                 agent -> { // nos movemos a la celda destino con menos agentes
                     List<Cell> neighbours = agent.cell().neighbours();
                     Integer minAgents = neighbours.stream().
-                            mapToInt( c -> c.agents().size() ).
+                          mapToInt( c -> c.agents().size() ).
                             min( ).
                             getAsInt();
                     List<Cell> destinations = neighbours.stream().
-                            filter( c -> c.agents().size() == minAgents ).
+                    		filter( c -> c.agents().size() == minAgents ).
                             collect(Collectors.toList());
-                    Cell destination = destinations.get(new Random().nextInt(destinations.size()));
-                    agent.moveTo(destination);
-                    return true;
+                   Cell destination = destinations.get(new Random().nextInt(destinations.size()));
+                   agent.moveTo(destination);
+                   return true;
                 });
+        
         s.create(random, 100, 5, 5); // Crear 100 agentes random
         s.create(outer, 100, 7, 7); // Crear 100 agentes "outer"
         s.run(60); // Ejecutar 60 pasos de simulacion

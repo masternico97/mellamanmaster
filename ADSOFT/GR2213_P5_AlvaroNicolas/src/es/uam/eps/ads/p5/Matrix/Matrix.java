@@ -34,9 +34,9 @@ public class Matrix<T> implements IMatrix<T> {
      * @param numColumnas = numero de columnas de la matriz
      * @param elementos ... = elementos que se van añadiendo en orden a la matriz
      */
-    public Matrix(int numFilas, int numColumnas, IMatrixElement ... elementos) {
+    public Matrix(int numFilas, int numColumnas, IMatrixElement<T> ... elementos) {
         this(numColumnas, numFilas);
-        for(IMatrixElement e: elementos) {
+        for(IMatrixElement<T> e: elementos) {
             try {
                 addElement(e);
             }catch(IllegalPositionException exception){
@@ -76,9 +76,9 @@ public class Matrix<T> implements IMatrix<T> {
             throw new IllegalPositionException(element.getI(), element.getJ());
         }
 
-        for(IMatrixElement e : matrix) {
+        for(IMatrixElement<T> e : matrix) {
             if(e.getI() == element.getI() && e.getJ() == element.getJ()) {
-                e.setElement(element);
+                e.setElement(element.getElement());
                 return;
             }
         }
@@ -96,7 +96,7 @@ public class Matrix<T> implements IMatrix<T> {
             throw new IllegalPositionException(i, j);
         }
 
-        for(IMatrixElement e : matrix) {
+        for(IMatrixElement<T> e : matrix) {
             if(e.getI() == i && e.getJ() == j) {
                 return e;
             }
@@ -119,28 +119,36 @@ public class Matrix<T> implements IMatrix<T> {
         }
 
         //Vecino del norte
-        elementoAux = getElementAt(i-1, j);
-        if(elementoAux != null) {
-            listaVecinos.add(elementoAux);
+	    if(isLegalPosition(i-1, j)) {
+	        elementoAux = getElementAt(i-1, j);
+	        if(elementoAux != null) {
+	            listaVecinos.add(elementoAux);
+	        }
         }
 
         //Vecino del sur
-        elementoAux = getElementAt(i+1, j);
-        if(elementoAux != null) {
-            listaVecinos.add(elementoAux);
-        }
-
+	    if(isLegalPosition(i+1, j)) {
+	        elementoAux = getElementAt(i+1, j);
+	        if(elementoAux != null) {
+	            listaVecinos.add(elementoAux);
+	        }
+	    }
+	    
         //Vecino del oeste
-        elementoAux = getElementAt(i, j-1);
-        if(elementoAux != null) {
-            listaVecinos.add(elementoAux);
-        }
-
+	    if(isLegalPosition(i, j-1)) {
+	        elementoAux = getElementAt(i, j-1);
+	        if(elementoAux != null) {
+	            listaVecinos.add(elementoAux);
+	        }
+	    }
+	    
         //Vecino del este
-        elementoAux = getElementAt(i, j+1);
-        if(elementoAux != null) {
-            listaVecinos.add(elementoAux);
-        }
+	    if(isLegalPosition(i, j+1)) {
+	        elementoAux = getElementAt(i, j+1);
+	        if(elementoAux != null) {
+	            listaVecinos.add(elementoAux);
+	        }
+	    }
 
         return listaVecinos;
 
@@ -185,8 +193,7 @@ public class Matrix<T> implements IMatrix<T> {
         Matrix<T> comparing = (Matrix<T>)obj;
 
         if(getRows() == comparing.getRows() && getCols() == comparing.getCols()) {
-            int ret = 0;
-            for(int i = 0; i < getRows(); i++) {
+        	for(int i = 0; i < getRows(); i++) {
                 for(int j = 0; j < getCols(); j++) {
                     try {
                         if(!getElementAt(i, j).equals(comparing.getElementAt(i, j))) {

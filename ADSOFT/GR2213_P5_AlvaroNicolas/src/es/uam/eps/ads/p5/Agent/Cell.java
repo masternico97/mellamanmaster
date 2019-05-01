@@ -18,7 +18,7 @@ public class Cell {
     }
 
     public Cell(IBasicAgent ... agentes) {
-        super();
+        this();
         add(agentes);
     }
 
@@ -29,7 +29,7 @@ public class Cell {
         }
     }
 
-    public void iniElement(IMatrixElement element) {
+    public void iniElement(IMatrixElement<Cell> element) {
         iMatrixElement = element;
     }
 
@@ -51,22 +51,91 @@ public class Cell {
     public LinkedList<IBasicAgent> agents() {
         return agentes;
     }
+    
+    public LinkedList<IBasicAgent> getElement() {
+        return agentes;
+    }
+    
+    public IMatrixElement<Cell> getMatrixElement(){
+		return iMatrixElement;
+    	
+    }
+    
+    public List<IMatrixElement<Cell>> getNeighbourMatrixElements() throws IllegalPositionException{
+    	List<IMatrixElement<Cell>> listElements;
+    	IMatrixElement<Cell> auxMatrixElement;
+    	Cell auxCell = new Cell();
+    	
+    	listElements = iMatrixElement.getMatrix().getNeighboursAt(iMatrixElement.getI(), iMatrixElement.getJ());
+    	if(listElements.size() == 4) {	
+        	return listElements;
+    	}
+    	
+    	//Comprobamos si falta el elemento al sur
+    	if(iMatrixElement.getMatrix().isLegalPosition(iMatrixElement.getI()+1, iMatrixElement.getJ())) {
+	    	auxMatrixElement = iMatrixElement.getMatrix().getElementAt(iMatrixElement.getI()+1, iMatrixElement.getJ());
+	    	if(auxMatrixElement == null) {
+	    		auxCell = new Cell();
+	    		auxMatrixElement = new MatrixElement<Cell>(iMatrixElement.getI()+1, iMatrixElement.getJ(), auxCell, iMatrixElement.getMatrix());
+	    		auxCell.iniElement(auxMatrixElement);
+	    		iMatrixElement.getMatrix().addElement(auxMatrixElement);
+	    		listElements.add(auxMatrixElement);
+	    	}
+    	}
+    	
+    	//Comprobamos si falta el elemento al norte
+    	if(iMatrixElement.getMatrix().isLegalPosition(iMatrixElement.getI()-1, iMatrixElement.getJ())) {
+	    	auxMatrixElement = iMatrixElement.getMatrix().getElementAt(iMatrixElement.getI()-1, iMatrixElement.getJ());
+	    	if(auxMatrixElement == null) {
+	    		auxCell = new Cell();
+	    		auxMatrixElement = new MatrixElement<Cell>(iMatrixElement.getI()-1, iMatrixElement.getJ(), auxCell, iMatrixElement.getMatrix());
+	    		auxCell.iniElement(auxMatrixElement);
+	    		iMatrixElement.getMatrix().addElement(auxMatrixElement);
+	    		listElements.add(auxMatrixElement);
+	    	}
+    	}
+    	
+    	//Comprobamos si falta el elemento al este
+    	if(iMatrixElement.getMatrix().isLegalPosition(iMatrixElement.getI(), iMatrixElement.getJ()+1)) {
+	    	auxMatrixElement = iMatrixElement.getMatrix().getElementAt(iMatrixElement.getI(), iMatrixElement.getJ()+1);
+	    	if(auxMatrixElement == null) {
+	    		auxCell = new Cell();
+	    		auxMatrixElement = new MatrixElement<Cell>(iMatrixElement.getI(), iMatrixElement.getJ()+1, auxCell, iMatrixElement.getMatrix());
+	    		auxCell.iniElement(auxMatrixElement);
+	    		iMatrixElement.getMatrix().addElement(auxMatrixElement);
+	    		listElements.add(auxMatrixElement);
+	    	}
+    	}
+    	
+    	//Comprobamos si falta el elemento al oeste
+	    	if(iMatrixElement.getMatrix().isLegalPosition(iMatrixElement.getI(), iMatrixElement.getJ()-1)) {
+	    	auxMatrixElement = iMatrixElement.getMatrix().getElementAt(iMatrixElement.getI(), iMatrixElement.getJ()-1);
+	    	if(auxMatrixElement == null) {
+	    		auxCell = new Cell();
+	    		auxMatrixElement = new MatrixElement<Cell>(iMatrixElement.getI(), iMatrixElement.getJ()-1, auxCell, iMatrixElement.getMatrix());
+	    		auxCell.iniElement(auxMatrixElement);
+	    		iMatrixElement.getMatrix().addElement(auxMatrixElement);
+	    		listElements.add(auxMatrixElement);
+	    	}
+    	}
+    	
+    	return listElements;
+    }
 
     public List<Cell> neighbours() {
         List<Cell> cells = new LinkedList<>();
         try {
-            List<IMatrixElement> listElements = new LinkedList<>();
-            listElements.add((MatrixElement)iMatrixElement.getMatrix().getNeighboursAt(iMatrixElement.getI(), iMatrixElement.getJ()));
-            for(IMatrixElement el : listElements) {
-                cells.add((Cell) el.getElement());
+            List<IMatrixElement<Cell>> listElements = getNeighbourMatrixElements();
+
+            for(IMatrixElement<Cell> element : listElements) {
+                cells.add(element.getElement());
             }
+           
         } catch (IllegalPositionException e) {
             e.printStackTrace();
-        }
+        } 
         return cells;
     }
 
-    public LinkedList<IBasicAgent> getElement() {
-        return agentes;
-    }
+    
 }

@@ -1,7 +1,7 @@
 package es.uam.eps.ads.p5.Test;
 
 import es.uam.eps.ads.p5.Agent.BasicAgent;
-import es.uam.eps.ads.p5.Agent.BasicSimulator;
+import es.uam.eps.ads.p5.Simulator.BasicSimulator;
 
 public class MainApartado3 {
 
