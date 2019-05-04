@@ -5,8 +5,9 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class AgentWithState extends BasicAgent implements IAgentWithState, Cloneable{
-	List<AgentState> estados;
+public class AgentWithState extends Agent implements IAgentWithState, Cloneable{
+	private List<AgentState> estados;
+	private AgentState estadoActual;
 
 	public AgentWithState(String tipo, String ...states) {
 		super(tipo);
@@ -17,7 +18,14 @@ public class AgentWithState extends BasicAgent implements IAgentWithState, Clone
 		}
 	}
 
-	@Override
+	public void setState(String state) {
+		for(AgentState currentState: estados) {
+			if(currentState.name().equals(state)) {
+				estadoActual = currentState;
+			}
+		}
+	}
+	
 	public IAgentState state(String name) {
 		for(AgentState currentState: estados) {
 			if(currentState.name().equals(name)) {
@@ -27,14 +35,33 @@ public class AgentWithState extends BasicAgent implements IAgentWithState, Clone
 		return null;
 	}
 
-	@Override
 	public IAgentWithState addBehaviour(String state, Predicate<IAgent> trigger, Function<IAgent, Boolean> behaviour) {
-		return null;
+		for(AgentState currentState: estados) {
+			if(currentState.name().equals(state)) {
+				return currentState.addBehaviour(trigger, behaviour);
+			}
+		}
+		return this;
 	}
 
-	@Override
 	public IAgentWithState addBehaviour(String state, Function<IAgent, Boolean> behaviour) {
-		return null;
+		for(AgentState currentState: estados) {
+			if(currentState.name().equals(state)) {
+				return currentState.addBehaviour(behaviour);
+			}
+		}
+		return this;
 	}
+	
+	@Override
+	public void exec(){
+        for(Comportamiento c : comportamientos) {
+            if(c.getTrigger().test(this)) {
+                c.getBehaviour().apply(this);
+            }
+        }
+        estadoActual.exec();
+    }
+	
 
 }
