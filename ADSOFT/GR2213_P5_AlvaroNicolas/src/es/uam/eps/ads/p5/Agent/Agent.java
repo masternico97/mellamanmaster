@@ -12,7 +12,7 @@ import java.util.function.Predicate;
  */
 public class Agent extends BasicAgent implements IAgent, Cloneable {
 
-    private LinkedList<Comportamiento> comportamientos;
+    protected LinkedList<Comportamiento> comportamientos;
 
     /**
      * Constructor de la clase Agent
@@ -40,6 +40,7 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
     /**
      * Metodo para ejecutar comportamiento del agente
      */
+    @Override
     public void exec(){
         for(Comportamiento c : comportamientos) {
             if(c.getTrigger().test(this)) {
@@ -47,7 +48,7 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
             }
         }
     }
-
+    
     /**
      * Metodo para anyadir un comportamiento con condicion
      *
@@ -56,11 +57,12 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
      * @return IAgent agente modificado, lo retornamos para poder encadenar
      * estas funciones
      */
+    @Override
     public IAgent addBehaviour(Predicate<IAgent> trigger, Function<IAgent, Boolean> behaviour) {
         comportamientos.add(new Comportamiento(behaviour, trigger));
         return this;
     }
-
+    
     /**
      * Metodo para anyadir un comportamiento sin condicion
      *
@@ -68,6 +70,7 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
      * @return IAgent agente modificado, lo retornamos para poder encadenar
      * estas funciones
      */
+    @Override
     public IAgent addBehaviour(Function<IAgent, Boolean> behaviour) {
         comportamientos.add(new Comportamiento(behaviour));
         return this;
@@ -79,19 +82,9 @@ public class Agent extends BasicAgent implements IAgent, Cloneable {
      * @return IAgent copia del agente
      */
     @Override
-    public IAgent copy() {
-        try {
-            Agent agent = (Agent)this.clone();
-            agent.comportamientos = this.comportamientos;
-            return agent;
-        }
-        catch(CloneNotSupportedException e) {
-            System.out.println("No se puede duplicar.");
-        }
-        return null;
-    }
-
-    public LinkedList<Comportamiento> getComportamientos() {
-        return comportamientos;
+    public IAgent copy() {    
+        Agent agent = new Agent(tipo);
+        agent.comportamientos = this.comportamientos;
+        return agent;
     }
 }

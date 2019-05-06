@@ -23,9 +23,4 @@ public class IllegalPositionException extends Exception {
     public IllegalPositionException() {
         System.out.println("Indice fuera de la posicion maxima");
     }
-
-    @Override
-    public void printStackTrace() {
-        System.out.println("Indice fuera de la posicion maxima");
-    }
 }

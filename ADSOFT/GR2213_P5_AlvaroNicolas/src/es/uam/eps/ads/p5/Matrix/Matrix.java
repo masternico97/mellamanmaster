@@ -180,6 +180,7 @@ public class Matrix<T> implements IMatrix<T> {
             }
             return salida;
         } catch (IllegalPositionException e) {
+        	System.out.println(e);
             return null;
         }
     }

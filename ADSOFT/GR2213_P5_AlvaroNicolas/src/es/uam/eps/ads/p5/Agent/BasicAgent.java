@@ -31,13 +31,9 @@ public class BasicAgent implements IBasicAgent, Cloneable {
      */
     @Override
     public IBasicAgent copy() {
-        try {
-             return (BasicAgent)this.clone();
-        }
-        catch(CloneNotSupportedException e) {
-            System.out.println("No se puede duplicar.");
-        }
-        return null;
+    	IBasicAgent agent = new BasicAgent(this.tipo);
+    	agent.setCell(cell);
+        return agent;
     }
 
     @Override

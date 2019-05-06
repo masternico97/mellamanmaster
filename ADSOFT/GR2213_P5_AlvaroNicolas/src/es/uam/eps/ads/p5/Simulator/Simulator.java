@@ -37,6 +37,7 @@ public class Simulator extends GeneralSimulator{
 	 * @param fila fila usada
 	 * @param columna columna usada
 	 */
+
     public void create(IAgent agent, int numAgentes, int fila, int columna) {
         IAgent aux;
         Cell cell = new Cell();
@@ -62,6 +63,7 @@ public class Simulator extends GeneralSimulator{
 	 *
 	 * @param pasos numero de pasos a ejecutar
 	 */
+	@Override
 	public void run(int pasos) {
 		for(int i = 0; i < pasos; i++) {
 			Boolean [] cogido = new Boolean [agentes.size()];	//Array que comprueba si un agente ya ha salido

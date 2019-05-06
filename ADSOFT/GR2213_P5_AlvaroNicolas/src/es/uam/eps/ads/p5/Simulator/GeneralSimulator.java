@@ -1,5 +1,6 @@
 package es.uam.eps.ads.p5.Simulator;
 
+import es.uam.eps.ads.p5.Agent.IAgent;
 import es.uam.eps.ads.p5.Matrix.*;
 
 /**
@@ -27,4 +28,6 @@ public abstract class GeneralSimulator {
         return "++++++++++++++++++++++++++++++++++++++++++++++\n" +
                "Time = "+tiempo+"\n"+entorno.toString();
     }
+    
+    public abstract void run(int pasos);
 }

@@ -50,6 +50,7 @@ public class BasicSimulator extends GeneralSimulator {
      *
      * @param pasos numero de pasos a ejecutar
      */
+    @Override
     public void run(int pasos) {
     	for(int i = 0; i < pasos; i++) {
     		tiempo = i;

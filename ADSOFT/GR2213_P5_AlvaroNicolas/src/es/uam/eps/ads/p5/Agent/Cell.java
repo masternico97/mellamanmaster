@@ -53,14 +53,11 @@ public class Cell {
      * @return Cell copia de la celda
      */
     public Cell copy() {
-        try {
-            return (Cell)this.clone();
-        }
-        catch(CloneNotSupportedException e) {
-            System.out.println("No se puede duplicar.");
-        }
-        return null;
-    }
+    	Cell cell = new Cell();
+    	cell.agentes = this.agentes;
+    	cell.iMatrixElement = this.iMatrixElement;
+    	return cell;
+      }
 
     public LinkedList<IBasicAgent> agents() {
         return agentes;
@@ -74,13 +71,13 @@ public class Cell {
 		return iMatrixElement;
     	
     }
-
+    
     /**
      * Metodo para obtener vecinos
      *
      * @return List<IMatrixElement<Cell>> lista de elementos de la matriz vecinos
      */
-    public List<IMatrixElement<Cell>> getNeighbourMatrixElements() throws IllegalPositionException{
+    private List<IMatrixElement<Cell>> getNeighbourMatrixElements() throws IllegalPositionException{
     	List<IMatrixElement<Cell>> listElements;
     	IMatrixElement<Cell> auxMatrixElement;
     	Cell auxCell = new Cell();
@@ -142,9 +139,9 @@ public class Cell {
     }
 
     /**
-     * Metodo para obtener celdas vecinas a partir de la funcion anterior
+     * Metodo para obtener vecinos
      *
-     * @return List<Cell> lista de celdas vecinas
+     * @return List<IMatrixElement<Cell>> lista de elementos de la matriz vecinos
      */
     public List<Cell> neighbours() {
         List<Cell> cells = new LinkedList<>();
