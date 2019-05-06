@@ -3,6 +3,12 @@ package es.uam.eps.ads.p5.Test;
 import es.uam.eps.ads.p5.Agent.BasicAgent;
 import es.uam.eps.ads.p5.Simulator.BasicSimulator;
 
+/**
+ * Clase MainApartado3 con el main del ejercicio 3
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
 public class MainApartado3 {
 
     public static void main(String args[]) {
