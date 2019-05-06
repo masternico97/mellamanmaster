@@ -139,9 +139,9 @@ public class Cell {
     }
 
     /**
-     * Metodo para obtener vecinos
+     * Metodo para obtener celdas vecinas a partir de la funcion anterior
      *
-     * @return List<IMatrixElement<Cell>> lista de elementos de la matriz vecinos
+     * @return List<Cell> lista de celdas vecinas
      */
     public List<Cell> neighbours() {
         List<Cell> cells = new LinkedList<>();
