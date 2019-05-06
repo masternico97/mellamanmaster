@@ -8,20 +8,29 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Clase Cell, que representa un contenedor de agentes
+ * @author <a href="mailto:nicolas.serranos@estudiante.uam.es">Nicolas Serrano</a>
+ * @author <a href="mailto:alvaro.sanchezromero@estudiante.uam.es">Alvaro Sanchez</a>
+ * Grupo de practicas: 2213
+ */
 public class Cell {
 
     private LinkedList<IBasicAgent> agentes;
     private IMatrixElement<Cell> iMatrixElement;
 
+    /**
+     * Constructor de la clase Cell
+     */
     public Cell() {
         agentes = new LinkedList<>();
     }
 
-    public Cell(IBasicAgent ... agentes) {
-        this();
-        add(agentes);
-    }
-
+    /**
+     * Metodo para anyadir agentes
+     *
+     * @param agentes agentes a ayadir a nuestra celda
+     */
     public void add(IBasicAgent ... agentes) {
         this.agentes.addAll(Arrays.asList(agentes));
         for(IBasicAgent a : this.agentes) {
@@ -38,6 +47,11 @@ public class Cell {
         return String.valueOf(agentes.size());
     }
 
+    /**
+     * Metodo para hacer una copia de la celda
+     *
+     * @return Cell copia de la celda
+     */
     public Cell copy() {
         try {
             return (Cell)this.clone();
@@ -60,7 +74,12 @@ public class Cell {
 		return iMatrixElement;
     	
     }
-    
+
+    /**
+     * Metodo para obtener vecinos
+     *
+     * @return List<IMatrixElement<Cell>> lista de elementos de la matriz vecinos
+     */
     public List<IMatrixElement<Cell>> getNeighbourMatrixElements() throws IllegalPositionException{
     	List<IMatrixElement<Cell>> listElements;
     	IMatrixElement<Cell> auxMatrixElement;
@@ -122,6 +141,11 @@ public class Cell {
     	return listElements;
     }
 
+    /**
+     * Metodo para obtener celdas vecinas a partir de la funcion anterior
+     *
+     * @return List<Cell> lista de celdas vecinas
+     */
     public List<Cell> neighbours() {
         List<Cell> cells = new LinkedList<>();
         try {
