@@ -51,8 +51,8 @@ public class AgentState implements IAgentState, Cloneable {
 		cambiosEstado.put(target, trigger);
 	}
 
-	/**o
-     * Metodo para establecer si se cambia de estad
+	/**
+     * Metodo para establecer si se cambia de estado
      * @return IAgentState estado actual 
      */
 	@Override
